@@ -181,16 +181,15 @@ if(r==null)r=null
 s=r}r=A.av1(A.ao1(B.BC,s==null?"auto":s))
 return new A.ab(r,new A.a8h(),A.a6(r).h("ab<1,t>"))},
 aue(a,b){return b+a},
-P4(){var s=0,r=A.Y(t.e),q,p,o
+P4(){var s=0,r=A.Y(t.e),q,p
 var $async$P4=A.Z(function(a,b){if(a===1)return A.V(b,r)
 while(true)switch(s){case 0:s=3
 return A.a0(A.a8u(A.asL()),$async$P4)
-case 3:p=t.e
-s=4
-return A.a0(A.fk(self.window.CanvasKitInit(p.a({locateFile:A.aX(A.at4())})),p),$async$P4)
-case 4:o=b
-if(A.agc(o.ParagraphBuilder)&&!A.aiA())throw A.d(A.cc("The CanvasKit variant you are using only works on Chromium browsers. Please use a different CanvasKit variant, or use a Chromium browser."))
-q=o
+case 3:s=4
+return A.a0(A.fk(self.window.CanvasKitInit({locateFile:A.aX(A.at4())}),t.e),$async$P4)
+case 4:p=b
+if(A.agc(p.ParagraphBuilder)&&!A.aiA())throw A.d(A.cc("The CanvasKit variant you are using only works on Chromium browsers. Please use a different CanvasKit variant, or use a Chromium browser."))
+q=p
 s=1
 break
 case 1:return A.W(q,r)}})
@@ -349,7 +348,7 @@ r=$.agr=new A.Gp(new A.i0(s),Math.max(p,1),q,r)
 p=r}return p},
 amy(a,b){var s,r,q
 t.S3.a(a)
-s=t.e.a({})
+s={}
 r=A.ace(a.a,a.b)
 s.fontFamilies=r
 s.heightMultiplier=a.d
@@ -366,7 +365,7 @@ s.forceStrutHeight=a.w
 s.strutEnabled=!0
 return s},
 aaj(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,a0,a1){return new A.qX(b,c,d,e,f,m,k,a0,g,h,j,q,a1,o,p,r,a,n,s,i,l)},
-acS(a,b){var s=t.e.a({})
+acS(a,b){var s={}
 if(a!=null)s.weight=$.ala()[a.a]
 return s},
 ace(a,b){var s=A.a([],t.s)
@@ -21866,8 +21865,8 @@ return A.a0(q.b.$0(),$async$lA)
 case 3:return A.W(null,r)}})
 return A.X($async$lA,r)},
 a4J(){var s=A.aX(new A.PO(this))
-return t.e.a({initializeEngine:A.aX(new A.PP(this)),autoStart:s})},
-Xt(){return t.e.a({runApp:A.aX(new A.PL(this))})}}
+return{initializeEngine:A.aX(new A.PP(this)),autoStart:s}},
+Xt(){return{runApp:A.aX(new A.PL(this))}}}
 A.PO.prototype={
 $0(){return A.aj3(new A.PN(this.a).$0(),t.e)},
 $S:49}
@@ -21876,7 +21875,7 @@ $0(){var s=0,r=A.Y(t.e),q,p=this
 var $async$$0=A.Z(function(a,b){if(a===1)return A.V(b,r)
 while(true)switch(s){case 0:s=3
 return A.a0(p.a.lA(),$async$$0)
-case 3:q=t.e.a({})
+case 3:q={}
 s=1
 break
 case 1:return A.W(q,r)}})
@@ -21914,7 +21913,7 @@ LL(a,b){var s=0,r=A.Y(t.H),q=this
 var $async$$2=A.Z(function(c,d){if(c===1)return A.V(d,r)
 while(true)switch(s){case 0:s=2
 return A.a0(q.a.b.$0(),$async$$2)
-case 2:A.afL(a,t.e.a({}))
+case 2:A.afL(a,{})
 return A.W(null,r)}})
 return A.X($async$$2,r)},
 $S:287}
@@ -22252,7 +22251,7 @@ $1(a){var s=$.bC
 s=(s==null?$.bC=A.dN(self.window.flutterConfiguration):s).b
 if(s==null)s=null
 else{s=s.canvasKitBaseUrl
-if(s==null)s=null}return(s==null?"https://www.gstatic.com/flutter-canvaskit/a794cf2681c6c9fe7b260e0e84de96298dc9c18b/":s)+a},
+if(s==null)s=null}return(s==null?"https://www.gstatic.com/flutter-canvaskit/9064459a8b0dcd32877107f6002cc429a71659d1/":s)+a},
 $S:120}
 A.a8t.prototype={
 $1(a){this.a.remove()
@@ -23420,25 +23419,25 @@ s.setFillType($.aa0()[0])
 return A.adI(s,B.aY)},
 I9(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,a0,a1,a2){var s=t.eQ
 return A.aaj(s.a(a),b,c,d,e,f,g,h,i,j,k,l,m,s.a(n),o,p,q,r,a0,a1,a2)},
-I6(a,b,c,d,e,f,g,h,i,j,k,l){var s,r,q=t.e,p=q.a({}),o=$.ale()[j.a]
-p.textAlign=o
-if(k!=null)p.textDirection=$.alh()[k.a]
-if(h!=null)p.maxLines=h
-o=f!=null
-if(o)p.heightMultiplier=f
+I6(a,b,c,d,e,f,g,h,i,j,k,l){var s,r,q={},p=$.ale()[j.a]
+q.textAlign=p
+if(k!=null)q.textDirection=$.alh()[k.a]
+if(h!=null)q.maxLines=h
+p=f!=null
+if(p)q.heightMultiplier=f
 s=l==null
-if(!s)p.textHeightBehavior=$.ali()[0]
-if(a!=null)p.ellipsis=a
-if(i!=null)p.strutStyle=A.amy(i,l)
-p.replaceTabCharacters=!0
-r=q.a({})
+if(!s)q.textHeightBehavior=$.ali()[0]
+if(a!=null)q.ellipsis=a
+if(i!=null)q.strutStyle=A.amy(i,l)
+q.replaceTabCharacters=!0
+r={}
 if(e!=null||!1)r.fontStyle=A.acS(e,d)
 if(c!=null)A.agg(r,c)
-if(o)A.agi(r,f)
+if(p)A.agi(r,f)
 A.agf(r,A.ace(b,null))
-p.textStyle=r
-q=$.bj.b_().ParagraphStyle(p)
-return new A.Al(q,b,c,f,e,d,s?null:l.c)},
+q.textStyle=r
+p=$.bj.b_().ParagraphStyle(q)
+return new A.Al(p,b,c,f,e,d,s?null:l.c)},
 rz(a){var s,r,q=null
 t.m6.a(a)
 s=A.a([],t.AT)
@@ -23643,36 +23642,36 @@ r.dy!==$&&A.ax()
 r.dy=s
 q=s}return q}}
 A.QO.prototype={
-$0(){var s,r,q,p,o,n,m,l,k,j,i,h,g=this.a,f=g.a,e=g.b,d=g.c,c=g.d,b=g.e,a=g.f,a0=g.w,a1=g.z,a2=g.Q,a3=g.as,a4=g.at,a5=g.ch,a6=g.CW,a7=g.cx,a8=g.db,a9=t.e,b0=a9.a({})
+$0(){var s,r,q,p,o,n,m,l,k,j,i,h,g=this.a,f=g.a,e=g.b,d=g.c,c=g.d,b=g.e,a=g.f,a0=g.w,a1=g.z,a2=g.Q,a3=g.as,a4=g.at,a5=g.ch,a6=g.CW,a7=g.cx,a8=g.db,a9={}
 if(a5!=null){s=A.qj(new A.r(a5.y))
-b0.backgroundColor=s}if(f!=null){s=A.qj(f)
-b0.color=s}if(e!=null){r=B.c.T($.bj.b_().NoDecoration)
+a9.backgroundColor=s}if(f!=null){s=A.qj(f)
+a9.color=s}if(e!=null){r=B.c.T($.bj.b_().NoDecoration)
 s=e.a
 if((s|1)===s)r=(r|B.c.T($.bj.b_().UnderlineDecoration))>>>0
 if((s|2)===s)r=(r|B.c.T($.bj.b_().OverlineDecoration))>>>0
 if((s|4)===s)r=(r|B.c.T($.bj.b_().LineThroughDecoration))>>>0
-b0.decoration=r}if(b!=null)b0.decorationThickness=b
+a9.decoration=r}if(b!=null)a9.decorationThickness=b
 if(d!=null){s=A.qj(d)
-b0.decorationColor=s}if(c!=null)b0.decorationStyle=$.alg()[c.a]
-if(a0!=null)b0.textBaseline=$.alf()[a0.a]
-if(a1!=null)A.agg(b0,a1)
-if(a2!=null)b0.letterSpacing=a2
-if(a3!=null)b0.wordSpacing=a3
-if(a4!=null)A.agi(b0,a4)
+a9.decorationColor=s}if(c!=null)a9.decorationStyle=$.alg()[c.a]
+if(a0!=null)a9.textBaseline=$.alf()[a0.a]
+if(a1!=null)A.agg(a9,a1)
+if(a2!=null)a9.letterSpacing=a2
+if(a3!=null)a9.wordSpacing=a3
+if(a4!=null)A.agi(a9,a4)
 switch(g.ax){case null:case void 0:break
-case B.t:A.agh(b0,!0)
+case B.t:A.agh(a9,!0)
 break
-case B.vn:A.agh(b0,!1)
+case B.vn:A.agh(a9,!1)
 break}q=g.dx
 if(q===$){p=A.ace(g.x,g.y)
 g.dx!==$&&A.ax()
 g.dx=p
-q=p}A.agf(b0,q)
-if(a!=null||!1)b0.fontStyle=A.acS(a,g.r)
+q=p}A.agf(a9,q)
+if(a!=null||!1)a9.fontStyle=A.acS(a,g.r)
 if(a6!=null){g=A.qj(new A.r(a6.y))
-b0.foregroundColor=g}if(a7!=null){o=A.a([],t.J)
+a9.foregroundColor=g}if(a7!=null){o=A.a([],t.J)
 for(g=a7.length,n=0;n<a7.length;a7.length===g||(0,A.E)(a7),++n){m=a7[n]
-l=a9.a({})
+l={}
 s=A.qj(m.a)
 l.color=s
 s=m.b
@@ -23682,12 +23681,12 @@ k[1]=s.b
 l.offset=k
 s=m.c
 l.blurRadius=s
-o.push(l)}b0.shadows=o}if(a8!=null){j=A.a([],t.J)
+o.push(l)}a9.shadows=o}if(a8!=null){j=A.a([],t.J)
 for(g=a8.length,n=0;n<a8.length;a8.length===g||(0,A.E)(a8),++n){i=a8[n]
-h=a9.a({})
+h={}
 h.axis=i.a
 h.value=i.b
-j.push(h)}b0.fontVariations=j}return $.bj.b_().TextStyle(b0)},
+j.push(h)}a9.fontVariations=j}return $.bj.b_().TextStyle(a9)},
 $S:49}
 A.Ak.prototype={
 gnI(a){return this.d},
@@ -27425,7 +27424,7 @@ s=1
 break}j=n.x
 j.d=null
 p=4
-m=new globalThis.window.ImageDecoder(t.e.a({type:n.a,data:n.b,premultiplyAlpha:"premultiply",colorSpaceConversion:"default",preferAnimation:!0}))
+m=new globalThis.window.ImageDecoder({type:n.a,data:n.b,premultiplyAlpha:"premultiply",colorSpaceConversion:"default",preferAnimation:!0})
 i=t.H
 s=7
 return A.a0(A.fk(m.tracks.ready,i),$async$lc)
@@ -27463,7 +27462,7 @@ h=A
 s=4
 return A.a0(p.lc(),$async$h6)
 case 4:s=3
-return A.a0(h.fk(b.decode(l.a({frameIndex:p.r})),l),$async$h6)
+return A.a0(h.fk(b.decode({frameIndex:p.r}),l),$async$h6)
 case 3:k=b.image
 j=p.r
 i=p.d
@@ -70717,7 +70716,7 @@ s($,"ayF","akL",()=>A.aQ([B.k7,A.aiK("grapheme"),B.k8,A.aiK("word")],A.a2("ta"),
 s($,"azB","alq",()=>A.aiN())
 s($,"azA","alp",()=>{var q=A.D(self.window,"trustedTypes")
 q.toString
-return A.asK(q,"createPolicy",A.ar2("flutter-engine"),t.e.a({createScriptURL:A.aeB(new A.a8S())}))})
+return A.asK(q,"createPolicy",A.ar2("flutter-engine"),{createScriptURL:A.aeB(new A.a8S())})})
 r($,"azD","als",()=>self.window.FinalizationRegistry!=null)
 s($,"ayC","akI",()=>B.L.bt(A.aQ(["type","fontsChange"],t.N,t.z)))
 s($,"azN","adi",()=>{var q=A.aiL()

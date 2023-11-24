@@ -1,6 +1,6 @@
 {
-    "name": "webadmindashboard",
-    "short_name": "webadmindashboard",
+    "name": "vajradashboard",
+    "short_name": "vajra",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
