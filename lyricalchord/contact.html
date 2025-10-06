@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Lyrical Chord</title>
+<style>
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.6; color:#111; padding:24px; max-width:700px; margin:0 auto; }
+h1 { margin-bottom:18px; font-size:1.6rem; }
+label { font-weight:600; }
+input, textarea { width:100%; padding:8px; margin-top:6px; margin-bottom:14px; border:1px solid #ccc; border-radius:6px; }
+button { background-color:#111; color:#fff; padding:10px 16px; border:0; border-radius:6px; cursor:pointer; }
+button:hover { background-color:#333; }
+</style>
+</head>
+<body>
+<h1>Contact Lyrical Chord</h1>
+<p>Use the form below to open your default email app with a prefilled message. Your mail program will handle sending.</p>
+
+
+<form id="contactForm" onsubmit="return openLocalEmail(event)">
+<label for="name">Name</label><br>
+<input id="name" name="name" type="text" required placeholder="Your name" />
+
+
+<label for="email">Email</label><br>
+<input id="email" name="email" type="email" required placeholder="your@example.com" />
+
+
+<label for="message">Message (optional)</label><br>
+<textarea id="message" name="message" rows="6" placeholder="Write your message here..."></textarea>
+
+
+<button type="submit">Open Email App</button>
+</form>
+
+
+<script>
+function encodeForMail(text) {
+return encodeURIComponent(text).replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29");
+}
+
+
+function openLocalEmail(e) {
+e.preventDefault();
+const name = document.getElementById('name').value.trim();
+const email = document.getElementById('email').value.trim();
+const message = document.getElementById('message').value.trim();
+
+
+// Change recipient email here if needed
+const recipient = 'brishavshakya@gmail.com';
+
+
+const subject = `Contact from ${name}`;
+const bodyLines = [];
+bodyLines.push(`Name: ${name}`);
+bodyLines.push(`Email: ${email}`);
+if (message) bodyLines.push('');
+if (message) bodyLines.push(message);
+const body = bodyLines.join('\n');
+
+
+const mailto = `mailto:${recipient}?subject=${encodeForMail(subject)}&body=${encodeForMail(body)}`;
+
+
+window.location.href = mailto;
+return false;
+}
+</script>
+</body>
+</html>
