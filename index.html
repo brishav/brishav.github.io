@@ -7,10 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #202123;       /* ChatGPT dark background */
-      --card-bg: #2d2f31;
-      --text: #e8eaed;
-      --accent: #ff7043;   /* orange-red accent */
+      --bg: radial-gradient(circle at top left, #1e1f22, #0e0f11);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --text: #f3f4f6;
+      --accent: #ff7043;
       --accent-hover: #ff5722;
     }
 
@@ -24,42 +25,69 @@
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      scroll-behavior: smooth;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* ---------------- HERO SECTION ---------------- */
+    /* ---------------- HERO ---------------- */
     header {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      flex-direction: column;
       padding: 60px 20px;
-      background: linear-gradient(145deg, #202123, #2d2f31);
       position: relative;
+      background: linear-gradient(135deg, #0f1013, #1c1e21);
+      overflow: hidden;
+    }
+
+    /* background gradient blobs */
+    header::before, header::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+    header::before {
+      background: #ff7843;
+      width: 300px; height: 300px;
+      top: -100px; left: -100px;
+    }
+    header::after {
+      background: #ff3b1f;
+      width: 300px; height: 300px;
+      bottom: -100px; right: -100px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
     .profile-pic {
-      width: 150px;
-      height: 150px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
-      border: 3px solid var(--accent);
       object-fit: cover;
-      box-shadow: 0 0 25px rgba(255, 87, 34, 0.25);
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.3);
       margin-bottom: 25px;
+      backdrop-filter: blur(6px);
     }
 
-    header h1 {
-      font-size: 2.5rem;
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
       color: var(--accent);
       margin-bottom: 10px;
     }
 
-    header h2 {
-      font-size: 1.3rem;
+    h2 {
+      font-size: 1.2rem;
       opacity: 0.9;
       margin-bottom: 15px;
     }
@@ -71,31 +99,13 @@
       opacity: 0.85;
     }
 
-    .btn-primary {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 30px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-    }
-
     .links {
       margin-top: 25px;
     }
 
     .links a {
       color: var(--accent);
-      margin: 0 10px;
+      margin: 0 12px;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.2s ease;
@@ -105,55 +115,75 @@
       color: var(--accent-hover);
     }
 
-    /* ---------------- MAIN CONTENT ---------------- */
+    .btn-primary {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+    }
+
+    /* ---------------- MAIN ---------------- */
     main {
       max-width: 1000px;
       margin: 60px auto;
       padding: 0 20px;
+      display: grid;
+      gap: 40px;
     }
 
     section {
-      background: var(--card-bg);
-      padding: 25px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     section:hover {
       transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 6px 40px rgba(255, 87, 34, 0.15);
     }
 
-    h2 {
+    section h2 {
       color: var(--accent);
       font-size: 1.5rem;
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 6px;
-      margin-bottom: 15px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
     }
 
-    ul {
+    section ul {
       list-style: none;
       padding-left: 0;
     }
 
-    li {
+    section li {
       margin-bottom: 15px;
     }
 
-    li strong {
+    section li strong {
       color: #fff;
     }
 
     footer {
       text-align: center;
       padding: 40px 0;
-      background: #2d2f31;
-      color: #9ca3af;
+      color: #a0a0a0;
       font-size: 0.9rem;
-      border-top: 1px solid #3a3b3d;
     }
 
     footer a {
@@ -161,23 +191,10 @@
       text-decoration: none;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      header p {
-        font-size: 0.95rem;
-      }
-      section {
-        padding: 20px;
-      }
-    }
-
-    /* Scroll animation */
+    /* ---------------- SCROLL ANIMATIONS ---------------- */
     [data-animate] {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
@@ -185,61 +202,291 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ---------------- RESPONSIVE ---------------- */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.1rem;
+      }
+      header p {
+        font-size: 0.95rem;
+      }
+      section {
+        padding: 22px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="https://raw.githubusercontent.com/brishav/brishav.github.io/refs/heads/main/395132397_7302417439787791_5636099596056348662_n.jpg" alt="Brishav Shakya" class="profile-pic" />
-    <h1>Brishav Shakya</h1>
-    <h2>Sr. Flutter Developer / Software Engineer</h2>
-    <p>
-      I’m a passionate Flutter and Android Developer from Lalitpur, Nepal — turning ideas into functional and beautiful mobile experiences.
-    </p>
-    <div class="links">
-      <a href="mailto:bishopshakya@gmail.com">Email</a> |
-      <a href="https://www.linkedin.com/in/brishavshakya">LinkedIn</a> |
-      <a href="https://brishav.com.np">Website</a> |
-      <a href="https://brishavshakya.com.np">Portfolio</a>
+    <div class="hero-content">
+      <img src="<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brishav Shakya | Flutter Developer Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: radial-gradient(circle at top left, #1e1f22, #0e0f11);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --text: #f3f4f6;
+      --accent: #ff7043;
+      --accent-hover: #ff5722;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ---------------- HERO ---------------- */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      background: linear-gradient(135deg, #0f1013, #1c1e21);
+      overflow: hidden;
+    }
+
+    /* background gradient blobs */
+    header::before, header::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+    header::before {
+      background: #ff7843;
+      width: 300px; height: 300px;
+      top: -100px; left: -100px;
+    }
+    header::after {
+      background: #ff3b1f;
+      width: 300px; height: 300px;
+      bottom: -100px; right: -100px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.3);
+      margin-bottom: 25px;
+      backdrop-filter: blur(6px);
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    .links {
+      margin-top: 25px;
+    }
+
+    .links a {
+      color: var(--accent);
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .links a:hover {
+      color: var(--accent-hover);
+    }
+
+    .btn-primary {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 28px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+    }
+
+    /* ---------------- MAIN ---------------- */
+    main {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: grid;
+      gap: 40px;
+    }
+
+    section {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 40px rgba(255, 87, 34, 0.15);
+    }
+
+    section h2 {
+      color: var(--accent);
+      font-size: 1.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    section li {
+      margin-bottom: 15px;
+    }
+
+    section li strong {
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #a0a0a0;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ---------------- SCROLL ANIMATIONS ---------------- */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------------- RESPONSIVE ---------------- */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.1rem;
+      }
+      header p {
+        font-size: 0.95rem;
+      }
+      section {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="hero-content">
+      <img src="https://raw.githubusercontent.com/brishav/brishav.github.io/refs/heads/main/395132397_7302417439787791_5636099596056348662_n.jpg" alt="Brishav Shakya" class="profile-pic" />
+      <h1>Brishav Shakya</h1>
+      <h2>Sr. Flutter Developer / Software Engineer</h2>
+      <p>
+        I’m a passionate Flutter and Android Developer from Lalitpur, Nepal — building beautiful, performant mobile apps using Flutter, Riverpod, and modern architectures.
+      </p>
+      <div class="links">
+        <a href="mailto:bishopshakya@gmail.com">Email</a> |
+        <a href="https://www.linkedin.com/in/brishavshakya">LinkedIn</a> |
+        <a href="https://brishav.com.np">Website</a> |
+        <a href="https://brishavshakya.com.np">Portfolio</a>
+      </div>
+      <a href="#experience" class="btn-primary">Explore My Work</a>
     </div>
-    <a href="#projects" class="btn-primary">View My Work</a>
   </header>
 
   <main>
     <section data-animate>
       <h2>Summary</h2>
       <p>
-        Experienced Android & Flutter Developer with a strong background in building high-quality mobile applications. 
-        Skilled in Flutter, Riverpod, Provider, GetX, and Android development using Java/Kotlin. 
+        Experienced Android & Flutter Developer with a strong background in building high-quality mobile applications.
+        Skilled in Flutter, Riverpod, Provider, GetX, and Android development using Java/Kotlin.
         Passionate about clean architecture, UI/UX, and modern technologies like Generative AI.
       </p>
     </section>
 
-    <section data-animate>
+    <section data-animate id="experience">
       <h2>Experience</h2>
       <ul>
         <li><strong>Sr. Flutter Developer — Cyclone Nepal Info Tech</strong><br>
           <em>Jan 2023 – Present | Shankhamul, Kathmandu</em><br>
-          Using MVC architecture, GetX, Riverpod, and Provider for scalable apps. Integrating generative AI solutions.
+          Using MVC, GetX, Riverpod, and Provider for scalable apps. Integrating AI modules.
         </li>
-
         <li><strong>Mid Android Developer — Cyclone Nepal Info Tech</strong><br>
           <em>Jul 2019 – Present</em><br>
           Developed multiple Android/Flutter apps with Firebase, Retrofit, OkHttp, and Hilt Dagger.
         </li>
-
         <li><strong>Co-Founder / Board Member — VajraStore</strong><br>
           <em>Feb 2022 – Present | Lalitpur</em>
         </li>
-
         <li><strong>Data Entry Specialist — CloudFactory</strong><br>
           <em>Jun 2018 – Jul 2019 | Tripureshwar</em><br>
           AI dataset labeling and leadership for Nutonomy self-driving car project.
-        </li>
-
-        <li><strong>Intern — Cyclone Nepal Info Tech</strong><br>
-          <em>Jun 2017 – Sep 2017</em><br>
-          Created mockups, developed APIs, and implemented SQLite databases.
         </li>
       </ul>
     </section>
@@ -269,14 +516,97 @@
   </footer>
 
   <script>
-    // Scroll animation
+    // Scroll reveal effect
     const sections = document.querySelectorAll("[data-animate]");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add("visible");
       });
     });
-    sections.forEach((s) => observer.observe(s));
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>" alt="Brishav Shakya" class="profile-pic" />
+      <h1>Brishav Shakya</h1>
+      <h2>Sr. Flutter Developer / Software Engineer</h2>
+      <p>
+        I’m a passionate Flutter and Android Developer from Lalitpur, Nepal — building beautiful, performant mobile apps using Flutter, Riverpod, and modern architectures.
+      </p>
+      <div class="links">
+        <a href="mailto:bishopshakya@gmail.com">Email</a> |
+        <a href="https://www.linkedin.com/in/brishavshakya">LinkedIn</a> |
+        <a href="https://brishav.com.np">Website</a> |
+        <a href="https://brishavshakya.com.np">Portfolio</a>
+      </div>
+      <a href="#experience" class="btn-primary">Explore My Work</a>
+    </div>
+  </header>
+
+  <main>
+    <section data-animate>
+      <h2>Summary</h2>
+      <p>
+        Experienced Android & Flutter Developer with a strong background in building high-quality mobile applications.
+        Skilled in Flutter, Riverpod, Provider, GetX, and Android development using Java/Kotlin.
+        Passionate about clean architecture, UI/UX, and modern technologies like Generative AI.
+      </p>
+    </section>
+
+    <section data-animate id="experience">
+      <h2>Experience</h2>
+      <ul>
+        <li><strong>Sr. Flutter Developer — Cyclone Nepal Info Tech</strong><br>
+          <em>Jan 2023 – Present | Shankhamul, Kathmandu</em><br>
+          Using MVC, GetX, Riverpod, and Provider for scalable apps. Integrating AI modules.
+        </li>
+        <li><strong>Mid Android Developer — Cyclone Nepal Info Tech</strong><br>
+          <em>Jul 2019 – Present</em><br>
+          Developed multiple Android/Flutter apps with Firebase, Retrofit, OkHttp, and Hilt Dagger.
+        </li>
+        <li><strong>Co-Founder / Board Member — VajraStore</strong><br>
+          <em>Feb 2022 – Present | Lalitpur</em>
+        </li>
+        <li><strong>Data Entry Specialist — CloudFactory</strong><br>
+          <em>Jun 2018 – Jul 2019 | Tripureshwar</em><br>
+          AI dataset labeling and leadership for Nutonomy self-driving car project.
+        </li>
+      </ul>
+    </section>
+
+    <section data-animate>
+      <h2>Top Skills</h2>
+      <ul>
+        <li>Flutter / Dart / Android (Java & Kotlin)</li>
+        <li>State Management: Riverpod, GetX, Provider</li>
+        <li>Firebase, RESTful APIs, MVC / MVVM Architecture</li>
+        <li>Generative AI Integration, Data Analysis</li>
+      </ul>
+    </section>
+
+    <section data-animate>
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Bachelor of Information Management (BIM)</strong> — Nagarjuna College of IT (2015–2020)</li>
+        <li><strong>+2 Business Administration</strong> — Moon Light Higher Secondary School (2013–2015)</li>
+        <li><strong>SLC</strong> — Future Stars High School (2007–2012)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Brishav Shakya — <a href="https://brishav.com.np">brishav.com.np</a>
+  </footer>
+
+  <script>
+    // Scroll reveal effect
+    const sections = document.querySelectorAll("[data-animate]");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    });
+    sections.forEach(s => observer.observe(s));
   </script>
 
 </body>
