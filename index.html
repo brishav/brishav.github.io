@@ -216,37 +216,43 @@
       }
     }
 
+     /* ---------- PROJECTS ---------- */
     .project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
 
-.project-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  padding: 20px;
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .project-card {
+      display: block;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+    }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(255, 87, 34, 0.15);
-}
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(255, 87, 34, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+    }
 
-.project-card h3 {
-  color: var(--accent);
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-}
+    .project-card h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
 
-.project-card p {
-  font-size: 0.95rem;
-  opacity: 0.9;
-  margin-bottom: 10px;
-}
+    .project-card p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -301,137 +307,86 @@
     </section>
 
     <section data-animate id="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>Lalitpur Chamber of Commerce and Industry (LCCI)</h3>
-        <p><strong>Associated with:</strong> Cyclone Nepal Info Tech<br>
-        <em>Jan 2025 – Present</em></p>
-        <p>
-          A mobile app enhancing LCCI’s digital presence with blog posting, event management, and form submissions.
-          Empowering communication and engagement within the Lalitpur business community.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Riverpod · Android · iOS</p>
-      </div>
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <a href="https://lcci.org.np/" target="_blank" class="project-card">
+          <h3>Lalitpur Chamber of Commerce and Industry (LCCI)</h3>
+          <p><em>Jan 2025 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>App to enhance LCCI’s digital presence with blogs, event management, and form submissions.</p>
+          <p><strong>Skills:</strong> Flutter · Riverpod · Android · iOS</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Bulk IPO Apply – NEPSE</h3>
-        <p><strong>Associated with:</strong> Cyclone Nepal Info Tech<br>
-        <em>Nov 2024 – Present</em></p>
-        <p>
-          All-in-one solution for Nepalese investors to apply for multiple IPOs, track market data, and manage portfolios.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Isar · Android · iOS</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Bulk IPO Apply – NEPSE</h3>
+          <p><em>Nov 2024 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>All-in-one app for IPO applications, live NEPSE data, and portfolio management.</p>
+          <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Isar · Android · iOS</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Nepali News Khabar</h3>
-        <p><strong>Associated with:</strong> Cyclone Nepal Info Tech<br>
-        <em>Aug 2024 – Present</em></p>
-        <p>
-          A clean news aggregator app bringing Nepal’s top headlines, trending updates, and opinions in one place.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Riverpod · Isar · Dio · REST API</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Nepali News Khabar</h3>
+          <p><em>Aug 2024 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>Clean news aggregator bringing Nepal’s top headlines and breaking news in one place.</p>
+          <p><strong>Skills:</strong> Flutter · Riverpod · Isar · Dio · REST API</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Bloodforme – Blood Donation App</h3>
-        <p><strong>Associated with:</strong> Cyclone Nepal Info Tech<br>
-        <em>Mar 2024 – Jun 2025</em></p>
-        <p>
-          Connects donors and receivers using trusted contacts, with offline support and privacy-first design.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Android · iOS</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Bloodforme</h3>
+          <p><em>Mar 2024 – Jun 2025 | Cyclone Nepal Info Tech</em></p>
+          <p>Life-saving app connecting blood donors and receivers through trusted contacts.</p>
+          <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Android · iOS</p>
+        </a>
 
-      <div class="project-card">
-        <h3>JFT Mock Test</h3>
-        <p><strong>Associated with:</strong> Cyclone Nepal Info Tech<br>
-        <em>Aug 2024 – Jan 2025</em></p>
-        <p>
-          Helps Nepali learners prepare for the Japan Foundation Test (JFT) with practice exams, audio & vocabulary modules.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Android · iOS</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>JFT Mock Test</h3>
+          <p><em>Aug 2024 – Jan 2025 | Cyclone Nepal Info Tech</em></p>
+          <p>Japanese language mock test app for Nepali learners preparing for JFT exams.</p>
+          <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Android · iOS</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Digital HR</h3>
-        <p><em>Jan 2022 – Present</em></p>
-        <p>
-          Attendance tracking system with admin dashboards, location tracking, and cross-platform support.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Kotlin · Firebase</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Digital HR</h3>
+          <p><em>Jan 2022 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>Attendance tracking and HR management app for organizations.</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Ahpu Invoice (Restaurant POS)</h3>
-        <p><em>Jan 2021 – Present</em></p>
-        <p>
-          Order management and billing system for restaurants with KOT printing and staff tracking.
-        </p>
-        <p><strong>Skills:</strong> Flutter · GetX · Isar · REST API</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Ahpu Invoice (Waiter App)</h3>
+          <p><em>Jan 2021 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>Restaurant order and billing system with KOT and VAT printing support.</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Borrow Nepal</h3>
-        <p><em>Jan 2021 – Present</em></p>
-        <p>
-          Rental platform for houses, flats, and rooms across Nepal with modern UI and database integration.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Firebase</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Borrow Nepal</h3>
+          <p><em>Jan 2021 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>Rental app for listing and finding houses, flats, and rooms in Nepal.</p>
+        </a>
 
-      <div class="project-card">
-        <h3>PicAeon</h3>
-        <p><em>Mar 2020 – Present</em></p>
-        <p>
-          A photo-sharing platform for photographers to share and download high-quality images freely.
-        </p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>PicAeon</h3>
+          <p><em>Mar 2020 – Present | Cyclone Nepal Info Tech</em></p>
+          <p>Platform for photographers to share and download high-quality images freely.</p>
+        </a>
 
-      <div class="project-card">
-        <h3>SRY (Survey App)</h3>
-        <p><em>May 2023 – Jul 2023</em></p>
-        <p>
-          Survey management application developed for Surya Nepal with offline and reporting features.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Android · iOS</p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>SRY (Survey Portal)</h3>
+          <p><em>May 2023 – Jul 2023 | Cyclone Nepal Info Tech</em></p>
+          <p>Survey management app for Surya Nepal with offline data sync and reports.</p>
+        </a>
 
-      <div class="project-card">
-        <h3>CN Restaurant / CN Khana</h3>
-        <p><em>2020 – 2021</em></p>
-        <p>
-          Food delivery and restaurant management apps supporting order tracking and nearby restaurant listings.
-        </p>
-      </div>
+        <a href="#" class="project-card">
+          <h3>Lyrical Chord</h3>
+          <p><em>Jun 2020 – Oct 2021 | Cyclone Nepal Info Tech</em></p>
+          <p>Music app offering lyrics, chords, tuner, and chord book tools for musicians.</p>
+        </a>
 
-      <div class="project-card">
-        <h3>Lyrical Chord</h3>
-        <p><em>Jun 2020 – Oct 2021</em></p>
-        <p>
-          Complete package for musicians offering lyrics, chords, tuner, and offline tools for music creation.
-        </p>
-        <p><strong>Skills:</strong> Flutter · Firebase · REST API</p>
+        <a href="#" class="project-card">
+          <h3>My Patro</h3>
+          <p><em>Nov 2019 – Mar 2020 | Cyclone Nepal Info Tech</em></p>
+          <p>Nepali calendar app showing events, forex rates, and daily news.</p>
+        </a>
       </div>
-
-      <div class="project-card">
-        <h3>Agile Solution Inventory Scanning</h3>
-        <p><em>Jan 2021 – Jul 2021</em></p>
-        <p>
-          Inventory management with QR scanning and Microsoft Nav backend sync.
-        </p>
-      </div>
-
-      <div class="project-card">
-        <h3>My Patro</h3>
-        <p><em>Nov 2019 – Mar 2020</em></p>
-        <p>
-          Nepali calendar app with daily events, forex, and news updates.
-        </p>
-      </div>
-    </div>
-  </section>
+    </section>
 
     <section data-animate>
       <h2>Top Skills</h2>
