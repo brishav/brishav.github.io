@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brishav Shakya | Developer Portfolio</title>
+  <title>Brishav Shakya | Flutter Developer Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #202123;       /* ChatGPT style dark background */
-      --card-bg: #2c2d30;
-      --text: #e5e6e7;
-      --accent: #ff5030;   /* warm reddish-orange accent */
-      --accent-light: #ff7a58;
+      --bg: #202123;       /* ChatGPT dark background */
+      --card-bg: #2d2f31;
+      --text: #e8eaed;
+      --accent: #ff7043;   /* orange-red accent */
+      --accent-hover: #ff5722;
     }
 
     * {
@@ -26,219 +26,258 @@
       color: var(--text);
       line-height: 1.6;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
+    /* ---------------- HERO SECTION ---------------- */
     header {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      flex-direction: column;
+      padding: 60px 20px;
+      background: linear-gradient(145deg, #202123, #2d2f31);
       position: relative;
     }
 
-    .hero {
-      text-align: center;
-      padding: 0 20px;
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.25);
+      margin-bottom: 25px;
     }
 
-    .hero h1 {
-      font-size: 2.8rem;
+    header h1 {
+      font-size: 2.5rem;
       color: var(--accent);
+      margin-bottom: 10px;
     }
-    .hero h2 {
-      font-size: 1.4rem;
-      margin-top: 15px;
-      color: var(--text);
+
+    header h2 {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
     }
-    .hero p {
-      margin-top: 25px;
-      font-size: 1rem;
+
+    header p {
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      font-size: 1rem;
       opacity: 0.85;
     }
 
     .btn-primary {
       display: inline-block;
       margin-top: 30px;
-      padding: 12px 28px;
+      padding: 12px 30px;
       background: var(--accent);
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 600;
-      cursor: pointer;
       text-decoration: none;
-      transition: background 0.3s ease;
-    }
-    .btn-primary:hover {
-      background: var(--accent-light);
+      transition: all 0.3s ease;
     }
 
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .links {
+      margin-top: 25px;
+    }
+
+    .links a {
+      color: var(--accent);
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .links a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ---------------- MAIN CONTENT ---------------- */
     main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
     }
 
     section {
-      margin-bottom: 80px;
-    }
-
-    section .section-title {
-      font-size: 1.8rem;
-      color: var(--accent);
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 12px;
       margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .project-cards {
-      display: grid;
-      gap: 24px;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
     }
 
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
-    }
-    .project-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .project-card .info {
-      padding: 18px;
-    }
-    .project-card .info h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-      color: white;
-    }
-    .project-card .info p {
-      font-size: 0.95rem;
-      opacity: 0.85;
-      margin-bottom: 12px;
-    }
-    .project-card .info a {
+    h2 {
       color: var(--accent);
-      font-weight: 600;
-      text-decoration: none;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 6px;
+      margin-bottom: 15px;
     }
 
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    ul {
+      list-style: none;
+      padding-left: 0;
     }
-    .skills-list span {
-      background: var(--card-bg);
-      color: var(--text);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 0.9rem;
+
+    li {
+      margin-bottom: 15px;
+    }
+
+    li strong {
+      color: #fff;
     }
 
     footer {
       text-align: center;
       padding: 40px 0;
-      border-top: 1px solid #3a3a3a;
+      background: #2d2f31;
+      color: #9ca3af;
       font-size: 0.9rem;
-      color: #8a8b8d;
+      border-top: 1px solid #3a3b3d;
     }
+
     footer a {
       color: var(--accent);
       text-decoration: none;
     }
 
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2.2rem;
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
       }
+      header p {
+        font-size: 0.95rem;
+      }
+      section {
+        padding: 20px;
+      }
+    }
+
+    /* Scroll animation */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <header id="home">
-    <div class="hero">
-      <h1>Hey, I’m Brishav 👋</h1>
-      <h2>Flutter & Android Developer based in Lalitpur, Nepal</h2>
-      <p>I build elegant mobile apps, bridging pixels & code. I’m passionate about state management, clean architecture, and creating impactful user experiences.</p>
-      <a href="#projects" class="btn-primary">See My Work</a>
+
+  <header>
+    <img src="https://raw.githubusercontent.com/brishav/brishav.github.io/refs/heads/main/395132397_7302417439787791_5636099596056348662_n.jpg" alt="Brishav Shakya" class="profile-pic" />
+    <h1>Brishav Shakya</h1>
+    <h2>Sr. Flutter Developer / Software Engineer</h2>
+    <p>
+      I’m a passionate Flutter and Android Developer from Lalitpur, Nepal — turning ideas into functional and beautiful mobile experiences.
+    </p>
+    <div class="links">
+      <a href="mailto:bishopshakya@gmail.com">Email</a> |
+      <a href="https://www.linkedin.com/in/brishavshakya">LinkedIn</a> |
+      <a href="https://brishav.com.np">Website</a> |
+      <a href="https://brishavshakya.com.np">Portfolio</a>
     </div>
+    <a href="#projects" class="btn-primary">View My Work</a>
   </header>
 
   <main>
-    <section id="projects">
-      <div class="section-title">Selected Projects</div>
-      <div class="project-cards">
-        <!-- Example Project Card -->
-        <div class="project-card">
-          <img src="project-image1.jpg" alt="Project 1">
-          <div class="info">
-            <h3>Your App Name</h3>
-            <p>Short description of what this app does, tech used, and key highlights.</p>
-            <a href="https://github.com/yourusername/your-app" target="_blank">View Code →</a>
-          </div>
-        </div>
-        <!-- Copy more cards for your projects -->
-      </div>
+    <section data-animate>
+      <h2>Summary</h2>
+      <p>
+        Experienced Android & Flutter Developer with a strong background in building high-quality mobile applications. 
+        Skilled in Flutter, Riverpod, Provider, GetX, and Android development using Java/Kotlin. 
+        Passionate about clean architecture, UI/UX, and modern technologies like Generative AI.
+      </p>
     </section>
 
-    <section id="experience">
-      <div class="section-title">Experience</div>
+    <section data-animate>
+      <h2>Experience</h2>
       <ul>
-        <li><strong>Sr. Flutter Developer — Cyclone Nepal Info Tech</strong> (Jan 2023 – Present)<br>
-          Using MVC, GetX, Riverpod, Provider; integrating AI modules.
+        <li><strong>Sr. Flutter Developer — Cyclone Nepal Info Tech</strong><br>
+          <em>Jan 2023 – Present | Shankhamul, Kathmandu</em><br>
+          Using MVC architecture, GetX, Riverpod, and Provider for scalable apps. Integrating generative AI solutions.
         </li>
-        <li><strong>Mid Android Developer — Cyclone Nepal Info Tech</strong> (Jul 2019 – Present)<br>
-          Built multiple Android & Flutter apps using Java, Kotlin, Firebase, REST APIs.
+
+        <li><strong>Mid Android Developer — Cyclone Nepal Info Tech</strong><br>
+          <em>Jul 2019 – Present</em><br>
+          Developed multiple Android/Flutter apps with Firebase, Retrofit, OkHttp, and Hilt Dagger.
         </li>
-        <!-- Add remaining experiences -->
+
+        <li><strong>Co-Founder / Board Member — VajraStore</strong><br>
+          <em>Feb 2022 – Present | Lalitpur</em>
+        </li>
+
+        <li><strong>Data Entry Specialist — CloudFactory</strong><br>
+          <em>Jun 2018 – Jul 2019 | Tripureshwar</em><br>
+          AI dataset labeling and leadership for Nutonomy self-driving car project.
+        </li>
+
+        <li><strong>Intern — Cyclone Nepal Info Tech</strong><br>
+          <em>Jun 2017 – Sep 2017</em><br>
+          Created mockups, developed APIs, and implemented SQLite databases.
+        </li>
       </ul>
     </section>
 
-    <section id="skills">
-      <div class="section-title">Skills & Tech</div>
-      <div class="skills-list">
-        <span>Flutter / Dart</span>
-        <span>Android (Java / Kotlin)</span>
-        <span>Riverpod</span>
-        <span>GetX</span>
-        <span>Provider</span>
-        <span>Firebase</span>
-        <span>REST / GraphQL</span>
-        <span>Clean Architecture</span>
-        <span>Generative AI</span>
-      </div>
+    <section data-animate>
+      <h2>Top Skills</h2>
+      <ul>
+        <li>Flutter / Dart / Android (Java & Kotlin)</li>
+        <li>State Management: Riverpod, GetX, Provider</li>
+        <li>Firebase, RESTful APIs, MVC / MVVM Architecture</li>
+        <li>Generative AI Integration, Data Analysis</li>
+      </ul>
     </section>
 
-    <section id="education">
-      <div class="section-title">Education</div>
+    <section data-animate>
+      <h2>Education</h2>
       <ul>
         <li><strong>Bachelor of Information Management (BIM)</strong> — Nagarjuna College of IT (2015–2020)</li>
         <li><strong>+2 Business Administration</strong> — Moon Light Higher Secondary School (2013–2015)</li>
         <li><strong>SLC</strong> — Future Stars High School (2007–2012)</li>
       </ul>
     </section>
-
-    <section id="contact">
-      <div class="section-title">Get in Touch</div>
-      <p>Feel free to reach out if you’d like to collaborate, hire me, or just say hi.</p>
-      <p>Email: <a href="mailto:bishopshakya@gmail.com">bishopshakya@gmail.com</a></p>
-    </section>
   </main>
 
   <footer>
     © 2025 Brishav Shakya — <a href="https://brishav.com.np">brishav.com.np</a>
   </footer>
+
+  <script>
+    // Scroll animation
+    const sections = document.querySelectorAll("[data-animate]");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    });
+    sections.forEach((s) => observer.observe(s));
+  </script>
+
 </body>
 </html>
