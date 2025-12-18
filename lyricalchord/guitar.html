@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guitar Beginner Tutorial</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      margin: 0;
+      padding: 0;
+      color: #e6e6e6;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #1e1e1e;
+      color: #ffb347;
+      padding: 25px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(26px, 5vw, 36px);
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #ccc;
+      font-size: clamp(14px, 3vw, 18px);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #1a1a1a;
+      padding: 20px 25px 40px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      border-radius: 8px;
+    }
+
+    h2 {
+      border-left: 4px solid #ffb347;
+      padding-left: 10px;
+      color: #ffb347;
+      font-size: clamp(22px, 4vw, 28px);
+      margin-top: 40px;
+    }
+
+    h3 {
+      margin-top: 24px;
+      color: #ffd28a;
+      font-size: clamp(18px, 3.5vw, 22px);
+    }
+
+    .section {
+      margin-bottom: 35px;
+    }
+
+    .image-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      max-width: 420px;
+    }
+
+    .tip {
+      background: #143d3d;
+      border-left: 4px solid #38b2ac;
+      padding: 12px 14px;
+      border-radius: 4px;
+      margin: 15px 0;
+      font-size: clamp(13px, 3vw, 16px);
+      color: #c9f7f5;
+    }
+
+    .code-diagram {
+      background: #262626;
+      border-radius: 6px;
+      padding: 12px 15px;
+      font-family: "Courier New", monospace;
+      display: inline-block;
+      border: 1px solid #444;
+      color: #ffddb0;
+      font-size: clamp(12px, 3vw, 16px);
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      padding: 20px 0 30px;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 10px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Guitar Beginner Tutorial</h1>
+  <p>A structured, beginner-friendly guide to help you start playing confidently.</p>
+</header>
+
+<main>
+
+  <!-- SECTION 1 -->
+  <section class="section" id="parts">
+    <h2>1. Understanding the Parts of a Guitar</h2>
+    <p>
+      Knowing the parts of your guitar helps you follow lessons, tune correctly,
+      and understand instructions. Here are the essential components:
+    </p>
+
+    <ul>
+      <li><strong>Headstock:</strong> Holds the tuning pegs.</li>
+      <li><strong>Tuning Pegs:</strong> Used to tighten or loosen strings.</li>
+      <li><strong>Nut:</strong> Guides the strings from the headstock to the neck.</li>
+      <li><strong>Neck:</strong> Long wooden part where you place your fingers.</li>
+      <li><strong>Frets:</strong> Metal strips that divide the neck into notes.</li>
+      <li><strong>Fretboard:</strong> The surface where your fingers press the strings.</li>
+      <li><strong>Body:</strong> The large hollow part that amplifies sound.</li>
+      <li><strong>Sound Hole:</strong> Where sound resonates (acoustic guitars).</li>
+      <li><strong>Bridge:</strong> Anchors the strings to the body.</li>
+    </ul>
+
+    <div class="image-container">
+      <!-- Guitar SVG -->
+      <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="300" cy="100" rx="70" ry="90" fill="#b06f3c" stroke="#8b5a2b" stroke-width="3"/>
+        <circle cx="300" cy="100" r="20" fill="#3a2a1a"/>
+        <rect x="100" y="80" width="180" height="40" fill="#c29b68" stroke="#8b5a2b" stroke-width="3"/>
+        <line x1="130" y1="80" x2="130" y2="120" stroke="#8b5a2b" stroke-width="2"/>
+        <line x1="160" y1="80" x2="160" y2="120" stroke="#8b5a2b" stroke-width="2"/>
+        <line x1="190" y1="80" x2="190" y2="120" stroke="#8b5a2b" stroke-width="2"/>
+        <line x1="220" y1="80" x2="220" y2="120" stroke="#8b5a2b" stroke-width="2"/>
+        <line x1="250" y1="80" x2="250" y2="120" stroke="#8b5a2b" stroke-width="2"/>
+        <rect x="40" y="70" width="60" height="60" rx="10" ry="10"
+              fill="#b57d4a" stroke="#8b5a2b" stroke-width="3"/>
+        <circle cx="45" cy="80" r="5" fill="#eee" stroke="#555" stroke-width="1"/>
+        <circle cx="45" cy="120" r="5" fill="#eee" stroke="#555" stroke-width="1"/>
+        <circle cx="95" cy="80" r="5" fill="#eee" stroke="#555" stroke-width="1"/>
+        <circle cx="95" cy="120" r="5" fill="#eee" stroke="#555" stroke-width="1"/>
+        <line x1="60" y1="78" x2="300" y2="89" stroke="#fdfdfd" stroke-width="2"/>
+        <line x1="60" y1="90" x2="300" y2="95" stroke="#fdfdfd" stroke-width="2"/>
+        <line x1="60" y1="102" x2="300" y2="101" stroke="#fdfdfd" stroke-width="2"/>
+        <line x1="60" y1="114" x2="300" y2="107" stroke="#fdfdfd" stroke-width="2"/>
+        <line x1="60" y1="126" x2="300" y2="113" stroke="#fdfdfd" stroke-width="2"/>
+        <line x1="60" y1="138" x2="300" y2="119" stroke="#fdfdfd" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <div class="tip">
+      <strong>Beginner Tip:</strong> Sit upright, rest the guitar on your right leg (if right‑handed),
+      and keep the neck slightly angled upward for comfort.
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="section" id="tuning">
+    <h2>2. Standard Guitar Tuning (E A D G B E)</h2>
+    <p>
+      A guitar has six strings. From thickest (top) to thinnest (bottom), the notes are:
+    </p>
+
+    <ul>
+      <li><strong>6th string:</strong> E (Low E)</li>
+      <li><strong>5th string:</strong> A</li>
+      <li><strong>4th string:</strong> D</li>
+      <li><strong>3rd string:</strong> G</li>
+      <li><strong>2nd string:</strong> B</li>
+      <li><strong>1st string:</strong> E (High E)</li>
+    </ul>
+
+    <div class="tip">
+      Use a tuner app. Pluck each string gently and adjust the tuning peg until the tuner shows the correct note.
+    </div>
+
+    <div class="tip">
+      <strong>Common mistake:</strong> Turning the peg too fast. Always tune slowly to avoid breaking strings.
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="section" id="chords">
+    <h2>3. Essential Beginner Chords</h2>
+    <p>
+      These four chords allow you to play hundreds of songs. Practice switching
+      between them slowly and cleanly.
+    </p>
+
+    <h3>C Major</h3>
+    <p>Place your ring finger on the 3rd fret of the A string.</p>
+    <div class="code-diagram">
+      E: 0<br>A: 3<br>D: 2<br>G: 0<br>B: 1<br>e: 0
+    </div>
+
+    <h3>G Major</h3>
+    <p>Use your ring, middle, and pinky fingers for stability.</p>
+    <div class="code-diagram">
+      E: 3<br>A: 2<br>D: 0<br>G: 0<br>B: 0<br>e: 3
+    </div>
+
+    <h3>D Major</h3>
+    <p>Keep your fingers curved to avoid muting nearby strings.</p>
+    <div class="code-diagram">
+      E: X<br>A: X<br>D: 0<br>G: 2<br>B: 3<br>e: 2
+    </div>
+
+    <h3>Em</h3>
+    <p>The easiest chord — only two fingers.</p>
+    <div class="code-diagram">
+      E: 0<br>A: 2<br>D: 2<br>G: 0<br>B: 0<br>e: 0
+    </div>
+
+    <div class="tip">
+      <strong>Practice Routine:</strong> Switch between C → G → Em → D slowly.
+      Aim for clean sound, not speed.
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="section" id="strumming">
+    <h2>4. Basic Strumming Technique</h2>
+    <p>
+      Strumming is about rhythm, not force. Keep your wrist loose and let your
+      hand glide across the strings.
+    </p>
+
+    <h3>Beginner Pattern</h3>
+    <div class="tip">
+      Down – Down-Up – Up-Down-Up
+    </div>
+
+    <p>
+      Count it as: <strong>1 – 2& – &4&</strong>.  
+      Start slow and keep your hand moving even when not hitting the strings.
+    </p>
+
+    <div class="tip">
+      <strong>Common mistake:</strong> Strumming from the elbow.  
+      Use your wrist for smoother motion.
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="section" id="song">
+    <h2>5. Your First Song Progression</h2>
+    <p>
+      Use the chords you learned to play this simple 4‑chord progression:
+    </p>
+
+    <ul>
+      <li>C (4 beats)</li>
+      <li>G (4 beats)</li>
+      <li>Em (4 beats)</li>
+      <li>D (4 beats)</li>
+    </ul>
+
+    <p>
+      Play each chord with the strumming pattern above.  
+      Repeat the loop and try singing over it once you're comfortable.
+    </p>
+
+    <div class="tip">
+      <strong>Daily Practice:</strong>  
+      10 min chords • 10 min strumming • 10 min switching between chords.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Versefy © 2025. Keep practicing and enjoy the journey.
+</footer>
+
+</body>
+</html>
