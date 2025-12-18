@@ -6,39 +6,39 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f7fafc;
+      background: #0f0f0f;
       margin: 0;
       padding: 0;
-      color: #222;
+      color: #e6e6e6;
       line-height: 1.6;
     }
     header {
-      background: #ffb347;
-      color: #222;
+      background: #1e1e1e;
+      color: #ffb347;
       padding: 20px;
       text-align: center;
+      border-bottom: 1px solid #333;
     }
     header h1 {
       margin: 0;
       font-size: 32px;
     }
-    header p {
-      margin: 5px 0 0 0;
-    }
     main {
       max-width: 900px;
       margin: 20px auto;
-      background: #fff;
+      background: #1a1a1a;
       padding: 20px 25px 40px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.06);
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
       border-radius: 8px;
     }
     h2 {
       border-left: 4px solid #ffb347;
       padding-left: 8px;
+      color: #ffb347;
     }
     h3 {
       margin-top: 24px;
+      color: #ffd28a;
     }
     .section {
       margin-bottom: 30px;
@@ -51,7 +51,7 @@
       max-width: 100%;
       height: auto;
       border-radius: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid #444;
     }
     .fretboard {
       display: flex;
@@ -59,34 +59,27 @@
       margin: 20px 0;
       gap: 8px;
     }
-    .string-labels {
-      text-align: center;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    .fret {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 14px;
-    }
     .fret span {
       padding: 4px 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       min-width: 30px;
       text-align: center;
-      background: #f9f9f9;
+      background: #2a2a2a;
+      color: #e6e6e6;
     }
     .fret .note {
-      background: #ffe6c7;
+      background: #ffb347;
+      color: #000;
       font-weight: bold;
     }
     .code-diagram {
-      background: #f4f4f4;
+      background: #262626;
       border-radius: 6px;
       padding: 10px 15px;
       font-family: "Courier New", monospace;
       display: inline-block;
+      border: 1px solid #444;
+      color: #ffddb0;
     }
     ul {
       padding-left: 20px;
@@ -95,12 +88,13 @@
       margin-bottom: 6px;
     }
     .tip {
-      background: #e6fffa;
+      background: #143d3d;
       border-left: 4px solid #38b2ac;
       padding: 10px 12px;
       border-radius: 4px;
       margin: 10px 0;
       font-size: 14px;
+      color: #c9f7f5;
     }
     footer {
       text-align: center;
@@ -127,44 +121,27 @@
     </p>
 
     <div class="image-container">
-      <!-- Simple illustrative image using SVG (no external file needed) -->
+      <!-- SVG stays the same -->
       <svg width="400" height="180" xmlns="http://www.w3.org/2000/svg">
-        <!-- Body -->
         <ellipse cx="280" cy="100" rx="60" ry="80" fill="#d1884f" stroke="#8b5a2b" stroke-width="3"/>
-        <!-- Sound hole -->
         <circle cx="280" cy="100" r="18" fill="#4a3622"/>
-        <!-- Neck -->
         <rect x="90" y="80" width="150" height="40" fill="#c29b68" stroke="#8b5a2b" stroke-width="3"/>
-        <!-- Frets -->
         <line x1="120" y1="80" x2="120" y2="120" stroke="#8b5a2b" stroke-width="2"/>
         <line x1="150" y1="80" x2="150" y2="120" stroke="#8b5a2b" stroke-width="2"/>
         <line x1="180" y1="80" x2="180" y2="120" stroke="#8b5a2b" stroke-width="2"/>
         <line x1="210" y1="80" x2="210" y2="120" stroke="#8b5a2b" stroke-width="2"/>
-        <!-- Headstock -->
         <rect x="40" y="70" width="60" height="60" rx="10" ry="10"
               fill="#b57d4a" stroke="#8b5a2b" stroke-width="3"/>
-        <!-- Tuning pegs -->
         <circle cx="45" cy="80" r="5" fill="#f4f4f4" stroke="#555" stroke-width="1"/>
         <circle cx="45" cy="120" r="5" fill="#f4f4f4" stroke="#555" stroke-width="1"/>
         <circle cx="95" cy="80" r="5" fill="#f4f4f4" stroke="#555" stroke-width="1"/>
         <circle cx="95" cy="120" r="5" fill="#f4f4f4" stroke="#555" stroke-width="1"/>
-        <!-- Strings -->
         <line x1="60" y1="78" x2="280" y2="89" stroke="#fdfdfd" stroke-width="2"/>
         <line x1="60" y1="90" x2="280" y2="95" stroke="#fdfdfd" stroke-width="2"/>
         <line x1="60" y1="110" x2="280" y2="105" stroke="#fdfdfd" stroke-width="2"/>
         <line x1="60" y1="122" x2="280" y2="111" stroke="#fdfdfd" stroke-width="2"/>
-
-        <!-- Labels -->
-        <text x="40" y="30" font-size="12" fill="#333">Headstock</text>
-        <line x1="65" y1="70" x2="65" y2="40" stroke="#333" stroke-width="1" />
-        <text x="150" y="35" font-size="12" fill="#333">Neck &amp; Frets</text>
-        <line x1="165" y1="80" x2="165" y2="45" stroke="#333" stroke-width="1" />
-        <text x="290" y="25" font-size="12" fill="#333">Body</text>
-        <line x1="280" y1="60" x2="280" y2="30" stroke="#333" stroke-width="1" />
-        <text x="305" y="100" font-size="12" fill="#333">Sound Hole</text>
-        <line x1="295" y1="100" x2="315" y2="100" stroke="#333" stroke-width="1" />
       </svg>
-      <p style="font-size: 13px; color: #555; margin-top: 8px;">
+      <p style="font-size: 13px; color: #aaa; margin-top: 8px;">
         Basic illustration of a soprano/concert ukulele.
       </p>
     </div>
@@ -202,20 +179,8 @@
       </div>
     </div>
 
-    <p>
-      Use a tuner app and match each open string to its note:
-    </p>
-    <ul>
-      <li><strong>4th string (top):</strong> G</li>
-      <li><strong>3rd string:</strong> C</li>
-      <li><strong>2nd string:</strong> E</li>
-      <li><strong>1st string (bottom):</strong> A</li>
-    </ul>
-
     <div class="tip">
-      <strong>Tip:</strong> Pluck gently near the sound hole when tuning and
-      always tune up to the pitch (if you go too high, tune down below the
-      correct note and then slowly tune up).
+      <strong>Tip:</strong> Tune slowly and always tune up to the pitch.
     </div>
   </section>
 
@@ -224,12 +189,8 @@
     <h2>3. Your first chords: C, F, and G</h2>
 
     <h3>C major chord</h3>
-    <p>
-      Place your ring finger on the 3rd fret of the A string (1st string).
-      The other strings are open.
-    </p>
+    <p>Place your ring finger on the 3rd fret of the A string.</p>
     <div class="code-diagram">
-      C chord (top to bottom strings):<br>
       G: 0<br>
       C: 0<br>
       E: 0<br>
@@ -237,13 +198,8 @@
     </div>
 
     <h3>F major chord</h3>
-    <p>
-      Place your index finger on the 1st fret of the E string (2nd string),
-      and your middle finger on the 2nd fret of the G string (4th string).
-      The other strings are open.
-    </p>
+    <p>Index on E1, middle on G2.</p>
     <div class="code-diagram">
-      F chord (top to bottom strings):<br>
       G: 2<br>
       C: 0<br>
       E: 1<br>
@@ -251,66 +207,33 @@
     </div>
 
     <h3>G major chord</h3>
-    <p>
-      Place your index finger on the 2nd fret of the C string (3rd string),
-      your middle finger on the 2nd fret of the A string (1st string),
-      and your ring finger on the 3rd fret of the E string (2nd string).
-    </p>
+    <p>Index on C2, middle on A2, ring on E3.</p>
     <div class="code-diagram">
-      G chord (top to bottom strings):<br>
       G: 0<br>
       C: 2<br>
       E: 3<br>
       A: 2
     </div>
-
-    <div class="tip">
-      <strong>Practice:</strong> Slowly change between C → F → G → C.
-      At first, do a down-strum, then switch chords, down-strum again, and so on.
-    </div>
   </section>
 
-  <!-- SECTION 4: Basic strumming -->
+  <!-- SECTION 4: Strumming -->
   <section class="section" id="strumming">
     <h2>4. Basic strumming pattern</h2>
-    <p>
-      Start with a simple “Down Down Down Down” pattern in a steady rhythm,
-      counting “1 - 2 - 3 - 4”.
-    </p>
-    <ul>
-      <li><strong>Step 1:</strong> Rest your strumming hand lightly above the sound hole.</li>
-      <li><strong>Step 2:</strong> Use your index finger nail or thumb to brush down across all strings.</li>
-      <li><strong>Step 3:</strong> Keep your wrist relaxed and move from the wrist, not the elbow.</li>
-      <li><strong>Step 4:</strong> Try: C chord for 4 beats, F for 4, G for 4, then back to C for 4.</li>
-    </ul>
-
+    <p>Start with a simple down-strum pattern.</p>
     <div class="tip">
-      <strong>Try this pattern:</strong> Down, Down-Up, Up-Down-Up (often written as D – DU – UDU).
-      Play it slowly and evenly.
+      Try: Down, Down-Up, Up-Down-Up.
     </div>
   </section>
 
-  <!-- SECTION 5: First song -->
+  <!-- SECTION 5: Song -->
   <section class="section" id="song">
     <h2>5. Your first simple song pattern</h2>
-    <p>
-      Here is a simple 4-bar chord progression you can loop and sing anything over:
-    </p>
-    <ul>
-      <li><strong>Bar 1:</strong> C (4 beats)</li>
-      <li><strong>Bar 2:</strong> F (4 beats)</li>
-      <li><strong>Bar 3:</strong> G (4 beats)</li>
-      <li><strong>Bar 4:</strong> C (4 beats)</li>
-    </ul>
-    <p>
-      Use the “Down, Down-Up, Up-Down-Up” pattern on each chord.
-      Start slow, then gradually increase your speed as you get more comfortable.
-    </p>
+    <p>C → F → G → C (4 beats each)</p>
   </section>
 </main>
 
 <footer>
-  Ukulele Tutorial &copy; 2025. Practice a little every day and enjoy the music.
+  Versefy © 2025. Keep practicing.
 </footer>
 
 </body>
