@@ -165,6 +165,246 @@
       font-size: clamp(2.25rem, 7.5vw, 5.5rem);
       line-height: 0.98;
     }
+
+    /* =========================================================
+       RESPONSIVE HARDENING
+       Keeps the existing design intact while improving behavior
+       on very small phones, tablets, landscape devices and touch.
+       ========================================================= */
+
+    html {
+      width: 100%;
+      overflow-x: hidden;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-rendering: optimizeLegibility;
+    }
+
+    img, svg, video, canvas {
+      max-width: 100%;
+    }
+
+    button, a, input, textarea, select {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Tailwind's custom xs classes are used throughout this file.
+       Define the breakpoint so they behave consistently. */
+    @media (min-width: 475px) {
+      /* xs breakpoint intentionally provided for the existing classes */
+    }
+
+    /* Prevent long technical strings from forcing horizontal overflow. */
+    h1, h2, h3, h4, h5, h6, p, a, span, div {
+      overflow-wrap: break-word;
+    }
+
+    /* Mobile navigation / drawer */
+    @media (max-width: 767px) {
+      header {
+        padding-left: max(0.75rem, env(safe-area-inset-left));
+        padding-right: max(0.75rem, env(safe-area-inset-right));
+      }
+
+      #mobile-drawer {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      #mobile-drawer > div:first-child {
+        min-height: 0;
+      }
+
+      /* Keep the status capsule readable without creating a horizontal scroll. */
+      #hero .inline-flex {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #hero .inline-flex > span {
+        min-width: 0;
+      }
+
+      /* Make the hero phone fit even on 320px-wide devices. */
+      #hero .card-3d-wrap {
+        width: min(100%, 18rem);
+      }
+
+      #hero .card-3d-wrap > .card-3d {
+        width: 100%;
+        max-width: 18rem;
+      }
+
+      #hero .card-3d-wrap .relative.w-full.h-\[460px\] {
+        height: clamp(25rem, 125vw, 29rem);
+      }
+
+      /* Horizontal filter row should scroll, never expand the page width. */
+      #project-filters {
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+      }
+
+      #project-filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      #project-filters .filter-btn {
+        scroll-snap-align: start;
+      }
+
+      /* Give dense data rows enough room to wrap naturally. */
+      .font-mono .flex.items-center.justify-between {
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      /* Modals use the safe viewport on mobile browsers. */
+      #case-modal {
+        padding:
+          max(0.75rem, env(safe-area-inset-top))
+          max(0.75rem, env(safe-area-inset-right))
+          max(0.75rem, env(safe-area-inset-bottom))
+          max(0.75rem, env(safe-area-inset-left));
+      }
+
+      #case-modal > div {
+        max-height: calc(100dvh - 1.5rem);
+      }
+
+      /* Contact / form controls remain comfortable to tap. */
+      input, textarea, select {
+        font-size: 16px !important;
+      }
+    }
+
+    /* Extra-small phones: 320–374px */
+    @media (max-width: 374px) {
+      .fluid-hero-title {
+        font-size: clamp(2rem, 11.5vw, 2.65rem);
+        letter-spacing: -0.045em;
+      }
+
+      #hero {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+      }
+
+      #hero .card-3d-wrap {
+        width: min(100%, 16rem);
+      }
+
+      #hero .card-3d-wrap > .card-3d {
+        max-width: 16rem;
+      }
+
+      /* Reduce decorative phone height on narrow screens. */
+      #hero .card-3d-wrap .relative.w-full.h-\[460px\] {
+        height: 24rem;
+      }
+
+      /* Avoid oversized orbital/profile elements. */
+      #about .w-48.h-48 {
+        width: 10.5rem;
+        height: 10.5rem;
+      }
+
+      #about .-inset-6 {
+        inset: -1.25rem;
+      }
+
+      #about .-inset-3 {
+        inset: -0.75rem;
+      }
+
+      /* Keep social pills usable instead of squeezing their text. */
+      #hero .flex.flex-wrap.items-center.gap-2 > a {
+        max-width: 100%;
+      }
+
+      #hero .flex.flex-wrap.items-center.gap-2 > a span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    /* Phones in landscape: don't let the hero become excessively tall. */
+    @media (max-width: 767px) and (orientation: landscape) {
+      #hero {
+        min-height: auto;
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+      }
+
+      #hero .card-3d-wrap .relative.w-full.h-\[460px\] {
+        height: min(75vh, 30rem);
+      }
+    }
+
+    /* Tablet-specific balance */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      #hero {
+        padding-top: 9rem;
+      }
+
+      #hero .fluid-hero-title {
+        font-size: clamp(3.25rem, 8vw, 5rem);
+      }
+
+      /* The desktop navigation is hidden until md, but the mobile
+         drawer should still be comfortable at tablet widths. */
+      #mobile-drawer {
+        overflow-y: auto;
+      }
+    }
+
+    /* Dynamic viewport height support for mobile browser chrome. */
+    @supports (height: 100dvh) {
+      #mobile-drawer {
+        height: 100dvh;
+      }
+
+      #hero {
+        min-height: min(92vh, 100dvh);
+      }
+    }
+
+    /* Respect reduced-motion preferences without changing the visual design. */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* Touch devices do not need desktop 3D hover transforms. */
+    @media (hover: none), (pointer: coarse) {
+      .card-3d {
+        transform: none !important;
+      }
+
+      .glare-effect {
+        opacity: 0 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -632,7 +872,7 @@
         <div class="glare-effect"></div>
         <div class="relative z-10 space-y-4 sm:space-y-6">
           <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-neon-amber">
-            <i data-lucide="figma" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            <i data-lucide="activity" class="w-5 h-5 sm:w-6 sm:h-6"></i>
           </div>
           <div class="space-y-2">
             <h3 class="text-lg sm:text-2xl font-display font-bold text-white">Design Systems</h3>
@@ -1486,6 +1726,14 @@
     mobileMenuBtn.addEventListener('click', () => {
       playBlip(500);
       toggleMobileMenu();
+    });
+
+    // Keep navigation state consistent when rotating a device or resizing
+    // from mobile/tablet into desktop.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        closeMobileMenu();
+      }
     });
 
     // 3. Live Nepal Time Indicator (UTC+5:45)
