@@ -1,427 +1,1842 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brishav Shakya | Flutter Developer Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Brishav Shakya — Senior Mobile Architect & Creative Engineer</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23111113' stroke='%2327272a' stroke-width='4'/%3E%3Ctext x='50%25' y='64%25' text-anchor='middle' font-size='46' font-family='system-ui, -apple-system, sans-serif' font-weight='700' fill='%23fafafa'%3EBS%3C/text%3E%3C/svg%3E">
+  
+  <!-- Modern Typography: Syne, Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Syne"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            noir: {
+              950: '#050507',
+              900: '#09090c',
+              850: '#101015',
+              800: '#181820',
+              700: '#262633',
+            },
+            neon: {
+              cyan: '#00f2fe',
+              violet: '#9d4edd',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              linkedin: '#0a66c2',
+              instagram: '#e1306c',
+            }
+          },
+          boxShadow: {
+            'glow-cyan': '0 0 35px -5px rgba(0, 242, 254, 0.25)',
+            'glow-violet': '0 0 35px -5px rgba(157, 78, 221, 0.25)',
+            'glow-linkedin': '0 0 30px -5px rgba(10, 102, 194, 0.35)',
+            'glow-instagram': '0 0 30px -5px rgba(225, 48, 108, 0.35)',
+            'inner-glare': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)',
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'spin-slow': 'spin 20s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --bg: radial-gradient(circle at top left, #1e1f22, #0e0f11);
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --text: #f3f4f6;
-      --accent: #ff7043;
-      --accent-hover: #ff5722;
+    /* Noise texture overlay */
+    .bg-noise {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* Custom smooth scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #09090c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #262633;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00f2fe;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
+    /* 3D Perspective Card Tilt */
+    .card-3d-wrap {
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
-
-    /* ---------------- HERO ---------------- */
-    header {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
+    .card-3d {
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      will-change: transform;
       position: relative;
-      background: linear-gradient(135deg, #0f1013, #1c1e21);
-      overflow: hidden;
     }
-
-    /* background gradient blobs */
-    header::before, header::after {
-      content: '';
+    .glare-effect {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.5;
-      z-index: 0;
-    }
-    header::before {
-      background: #ff7843;
-      width: 300px; height: 300px;
-      top: -100px; left: -100px;
-    }
-    header::after {
-      background: #ff3b1f;
-      width: 300px; height: 300px;
-      bottom: -100px; right: -100px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 25px rgba(255, 87, 34, 0.3);
-      margin-bottom: 25px;
-      backdrop-filter: blur(6px);
-    }
-
-    h1 {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      margin-bottom: 15px;
-    }
-
-    header p {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1rem;
-      opacity: 0.85;
-    }
-
-    .links {
-      margin-top: 25px;
-    }
-
-    .links a {
-      color: var(--accent);
-      margin: 0 12px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    .links a:hover {
-      color: var(--accent-hover);
-    }
-
-    .btn-primary {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 28px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(255, 87, 34, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-3px);
-    }
-
-    /* ---------------- MAIN ---------------- */
-    main {
-      max-width: 1000px;
-      margin: 60px auto;
-      padding: 0 20px;
-      display: grid;
-      gap: 40px;
-    }
-
-    section {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 30px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    section:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 40px rgba(255, 87, 34, 0.15);
-    }
-
-    section h2 {
-      color: var(--accent);
-      font-size: 1.5rem;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
-
-    section ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    section li {
-      margin-bottom: 15px;
-    }
-
-    section li strong {
-      color: #fff;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      color: #a0a0a0;
-      font-size: 0.9rem;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    /* ---------------- SCROLL ANIMATIONS ---------------- */
-    [data-animate] {
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.3s ease;
+      mix-blend-mode: overlay;
     }
 
-    [data-animate].visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ---------------- RESPONSIVE ---------------- */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.1rem;
+    /* Only show custom magnetic cursor on non-touch devices */
+    @media (pointer: fine) and (min-width: 1024px) {
+      body {
+        cursor: none;
       }
-      header p {
-        font-size: 0.95rem;
+      .cursor-dot, .cursor-ring {
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.12s ease-out, width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
       }
-      section {
-        padding: 22px;
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #00f2fe;
+      }
+      .cursor-ring {
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(0, 242, 254, 0.4);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), width 0.2s ease, height 0.2s ease, border 0.2s ease;
+      }
+      body.hovered .cursor-dot {
+        transform: translate(-50%, -50%) scale(1.6);
+        background-color: #9d4edd;
+      }
+      body.hovered .cursor-ring {
+        transform: translate(-50%, -50%) scale(1.8);
+        border-color: rgba(157, 78, 221, 0.6);
+        background-color: rgba(157, 78, 221, 0.05);
       }
     }
 
-     /* ---------- PROJECTS ---------- */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+    /* Continuous marquee animation */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 28s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
     }
 
-    .project-card {
-      display: block;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 20px;
-      backdrop-filter: blur(10px);
-      color: var(--text);
-      text-decoration: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-      cursor: pointer;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(255, 87, 34, 0.25);
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .project-card h3 {
-      color: var(--accent);
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-
-    .project-card p {
-      font-size: 0.95rem;
-      opacity: 0.9;
-      margin-bottom: 10px;
+    /* Fluid text clamp utility */
+    .fluid-hero-title {
+      font-size: clamp(2.25rem, 7.5vw, 5.5rem);
+      line-height: 0.98;
     }
   </style>
 </head>
-<body>
 
-  <header>
-    <div class="hero-content">
-      <img src="https://raw.githubusercontent.com/brishav/brishav.github.io/refs/heads/main/brishav.jpg" alt="Brishav Shakya" class="profile-pic" />
-      <h1>Brishav Shakya</h1>
-      <h2>Sr. Flutter Developer / Software Engineer</h2>
-      <p>
-        I’m a passionate Flutter and Android Developer from Lalitpur, Nepal — building beautiful, performant mobile apps using Flutter, Riverpod, and modern architectures.
-      </p>
-      <div class="links">
-        <a href="mailto:bishopshakya@gmail.com">Email</a> |
-        <a href="https://www.linkedin.com/in/brishavshakya">LinkedIn</a> |
-        <a href="https://www.instagram.com/brishavshakya_/">Instagram</a> |
-        <a href="https://www.youtube.com/@brishavshakya">Youtube</a>
+<body class="bg-noir-950 text-neutral-100 font-sans selection:bg-neon-cyan/25 selection:text-neon-cyan relative overflow-x-hidden min-h-screen">
+  
+  <!-- Ambient Interactive Canvas Background -->
+  <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+  <div class="bg-noise fixed inset-0 pointer-events-none z-10"></div>
+
+  <!-- Custom Cursor Elements (Desktop only) -->
+  <div class="cursor-dot hidden lg:block"></div>
+  <div class="cursor-ring hidden lg:block"></div>
+
+  <!-- Floating Top Navigation Bar (Adaptive Mobile + Desktop) -->
+  <header class="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6">
+    <nav class="w-full max-w-6xl flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl sm:rounded-full bg-noir-900/90 backdrop-blur-2xl border border-noir-700/80 shadow-2xl shadow-black/90">
+      
+      <!-- Logo Monogram with Micro Avatar -->
+      <a href="#hero" class="magnetic-trigger flex items-center gap-2.5 group">
+        <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[1.5px] bg-gradient-to-tr from-cyan-400 via-indigo-500 to-neon-violet group-hover:scale-105 transition-transform flex-shrink-0">
+          <img 
+            src="https://brishavshakya.com.np/public_html/profile.jpg" 
+            alt="Brishav Shakya" 
+            class="w-full h-full object-cover rounded-full"
+            onerror="this.src='https://placehold.co/100x100/181820/00f2fe?text=BS'"
+          />
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-neon-emerald ring-2 ring-noir-950"></span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-black tracking-tight text-white text-sm sm:text-base leading-none">
+            BRISHAV<span class="text-neon-cyan">.</span>
+          </span>
+          <span class="text-[9px] font-mono text-neutral-400 hidden xs:inline-block">Mobile Architect</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links (hidden on mobile/tablet) -->
+      <div class="hidden md:flex items-center gap-1 text-xs font-medium text-neutral-300">
+        <a href="#about" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">About</a>
+        <a href="#disciplines" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Arsenal</a>
+        <a href="#projects" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Projects</a>
+        <a href="#experience" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Journey</a>
+        <a href="#testimonials" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Reviews</a>
       </div>
-      <a href="#experience" class="btn-primary">Explore My Work</a>
-    </div>
+
+      <!-- Right Header Actions (Desktop + Mobile) -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        
+        <!-- Live Nepal Time (Desktop only) -->
+        <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-noir-850 border border-noir-700 text-[11px] font-mono text-neutral-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-neon-emerald animate-ping"></span>
+          <span>NPT:</span>
+          <span id="nepal-clock" class="text-neutral-200 font-medium">--:--:--</span>
+        </div>
+
+
+        <!-- Sound Toggle Button -->
+        <button id="audio-toggle" aria-label="Toggle Sound Effects" title="Sound Feedback" class="magnetic-trigger w-8 h-8 sm:w-8 sm:h-8 rounded-full bg-noir-800 border border-noir-700 flex items-center justify-center text-neutral-400 hover:text-neon-cyan hover:border-neon-cyan/50 transition-colors">
+          <i data-lucide="volume-2" id="sound-icon" class="w-3.5 h-3.5"></i>
+        </button>
+
+        <!-- CTA Button (Compact on mobile) -->
+        <a href="#contact" class="magnetic-trigger hidden xs:flex items-center gap-1.5 text-xs font-bold bg-white text-black px-3.5 py-1.5 rounded-full hover:bg-neon-cyan hover:text-black hover:shadow-glow-cyan transition-all transform active:scale-95">
+          <span>Let's Talk</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+
+        <!-- Mobile Drawer Toggle Button -->
+        <button id="mobile-menu-btn" aria-label="Open Mobile Menu" class="md:hidden w-9 h-9 rounded-xl bg-noir-850 border border-noir-700 flex items-center justify-center text-neutral-300 hover:text-white hover:border-neutral-500 active:scale-95 transition-all">
+          <i data-lucide="menu" id="menu-icon" class="w-5 h-5"></i>
+        </button>
+
+      </div>
+
+    </nav>
   </header>
 
-  <main>
-    <section data-animate>
-      <h2>Summary</h2>
-      <p>
-        Experienced Android & Flutter Developer with a strong background in building high-quality mobile applications.
-        Skilled in Flutter, Riverpod, Provider, GetX, and Android development using Java/Kotlin.
-        Passionate about clean architecture, UI/UX, and modern technologies like Generative AI.
-      </p>
-    </section>
+  <!-- Mobile Drawer / Overlay Navigation -->
+  <div id="mobile-drawer" class="fixed inset-0 z-40 bg-noir-950/95 backdrop-blur-3xl hidden opacity-0 transition-opacity duration-300 flex-col justify-between p-6 pt-24 md:hidden">
+    
+    <div class="space-y-6">
+      
+      <!-- Mobile Profile Snapshot -->
+      <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-noir-900 border border-noir-800">
+        <div class="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-r from-neon-cyan to-neon-violet">
+          <img 
+            src="https://brishavshakya.com.np/public_html/profile.jpg" 
+            alt="Brishav" 
+            class="w-full h-full object-cover rounded-full"
+            onerror="this.src='https://placehold.co/100x100/181820/00f2fe?text=BS'"
+          />
+        </div>
+        <div>
+          <div class="text-sm font-display font-bold text-white">Brishav Shakya</div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-neon-emerald animate-pulse"></span>
+            <span>Available in Lalitpur (UTC+5:45)</span>
+          </div>
+        </div>
+      </div>
 
-    <section data-animate id="experience">
-      <h2>Experience</h2>
-      <ul>
-        <li><strong>Sr. Flutter Developer — Cyclone Nepal Info Tech</strong><br>
-          <em>Jan 2023 – Present | Shankhamul, Kathmandu</em><br>
-          Using MVC, GetX, Riverpod, and Provider for scalable apps. Integrating AI modules.
-        </li>
-        <li><strong>Mid Android Developer — Cyclone Nepal Info Tech</strong><br>
-          <em>Jul 2019 – Present</em><br>
-          Developed multiple Android/Flutter apps with Firebase, Retrofit, OkHttp, and Hilt Dagger.
-        </li>
-        <li><strong>Co-Founder / Board Member — VajraStore</strong><br>
-          <em>Feb 2022 – Present | Lalitpur</em>
-        </li>
-        <li><strong>Data Entry Specialist — CloudFactory</strong><br>
-          <em>Jun 2018 – Jul 2019 | Tripureshwar</em><br>
-          AI dataset labeling and leadership for Nutonomy self-driving car project.
-        </li>
-      </ul>
-    </section>
-
-    <section data-animate id="projects">
-      <h2>Projects</h2>
-      <div class="project-grid">
-        <a href="https://lcci.org.np/" target="_blank" class="project-card">
-          <h3>Lalitpur Chamber of Commerce and Industry (LCCI)</h3>
-          <p><em>Jan 2025 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>App to enhance LCCI’s digital presence with blogs, event management, and form submissions.</p>
-          <p><strong>Skills:</strong> Flutter · Riverpod · Android · iOS</p>
+      <!-- Drawer Nav Links -->
+      <div class="space-y-2">
+        <a href="#about" onclick="closeMobileMenu()" class="flex items-center justify-between p-3.5 rounded-xl bg-noir-900/60 border border-noir-800/80 text-base font-display font-bold text-neutral-200 active:text-neon-cyan">
+          <span>01. Mindset & About</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-500"></i>
         </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.cninfotech.sharemandu&hl=en" target="_blank" class="project-card">
-          <h3>Bulk IPO Apply – NEPSE</h3>
-          <p><em>Nov 2024 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>All-in-one app for IPO applications, live NEPSE data, and portfolio management.</p>
-          <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Isar · Android · iOS</p>
+        <a href="#disciplines" onclick="closeMobileMenu()" class="flex items-center justify-between p-3.5 rounded-xl bg-noir-900/60 border border-noir-800/80 text-base font-display font-bold text-neutral-200 active:text-neon-cyan">
+          <span>02. Disciplines & Arsenal</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-500"></i>
         </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.cninfotech.newsportal&hl=en" target="_blank" class="project-card">
-          <h3>Nepali News Khabar</h3>
-          <p><em>Aug 2024 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>Clean news aggregator bringing Nepal’s top headlines and breaking news in one place.</p>
-          <p><strong>Skills:</strong> Flutter · Riverpod · Isar · Dio · REST API</p>
+        <a href="#projects" onclick="closeMobileMenu()" class="flex items-center justify-between p-3.5 rounded-xl bg-noir-900/60 border border-noir-800/80 text-base font-display font-bold text-neutral-200 active:text-neon-cyan">
+          <span>03. Selected Masterworks</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-500"></i>
         </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.cninfotech.bloodforme&hl=en" target="_blank" class="project-card">
-          <h3>Bloodforme</h3>
-          <p><em>Mar 2024 – Jun 2025 | Cyclone Nepal Info Tech</em></p>
-          <p>Life-saving app connecting blood donors and receivers through trusted contacts.</p>
-          <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Android · iOS</p>
+        <a href="#experience" onclick="closeMobileMenu()" class="flex items-center justify-between p-3.5 rounded-xl bg-noir-900/60 border border-noir-800/80 text-base font-display font-bold text-neutral-200 active:text-neon-cyan">
+          <span>04. 7+ Years Journey</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-500"></i>
         </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.cninfotech.mocktest&hl=en" target="_blank" class="project-card">
-          <h3>JFT Mock Test</h3>
-          <p><em>Aug 2024 – Jan 2025 | Cyclone Nepal Info Tech</em></p>
-          <p>Japanese language mock test app for Nepali learners preparing for JFT exams.</p>
-          <p><strong>Skills:</strong> Flutter · Riverpod · Dio · Android · iOS</p>
+        <a href="#testimonials" onclick="closeMobileMenu()" class="flex items-center justify-between p-3.5 rounded-xl bg-noir-900/60 border border-noir-800/80 text-base font-display font-bold text-neutral-200 active:text-neon-cyan">
+          <span>05. Endorsements</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-500"></i>
         </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.cyclonenepal.digitalhrs&hl=en" target="_blank" class="project-card">
-          <h3>Digital HRS</h3>
-          <p><em>Jan 2022 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>Attendance tracking and HR management app for organizations.</p>
-        </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.ahpuapp.waiterflutter&hl=en" target="_blank" class="project-card">
-          <h3>Ahpu Invoice (Waiter App)</h3>
-          <p><em>Jan 2021 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>Restaurant order and billing system with KOT and VAT printing support.</p>
-        </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.vajra.nepalease&hl=en" target="_blank" class="project-card">
-          <h3>Borrow Nepal</h3>
-          <p><em>Jan 2021 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>Rental app for listing and finding houses, flats, and rooms in Nepal.</p>
-        </a>
-
-        <a href="#" target="_blank" class="project-card">
-          <h3>PicAeon</h3>
-          <p><em>Mar 2020 – Present | Cyclone Nepal Info Tech</em></p>
-          <p>Platform for photographers to share and download high-quality images freely.</p>
-        </a>
-
-        <a href="#" target="_blank" class="project-card">
-          <h3>SRY (Survey Portal)</h3>
-          <p><em>May 2023 – Jul 2023 | Cyclone Nepal Info Tech</em></p>
-          <p>Survey management app for Surya Nepal with offline data sync and reports.</p>
-        </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.gizmoinnovation.lyricalchord&hl=en" target="_blank" class="project-card">
-          <h3>Lyrical Chord</h3>
-          <p><em>Jun 2020 – Oct 2021 | Cyclone Nepal Info Tech</em></p>
-          <p>Music app offering lyrics, chords, tuner, and chord book tools for musicians.</p>
-        </a>
-
-        <a href="https://play.google.com/store/apps/details?id=com.cninfotech.mypatro&hl=en" target="_blank" class="project-card">
-          <h3>My Patro</h3>
-          <p><em>Nov 2019 – Mar 2020 | Cyclone Nepal Info Tech</em></p>
-          <p>Nepali calendar app showing events, forex rates, and daily news.</p>
+        <a href="#contact" onclick="closeMobileMenu()" class="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-neon-cyan/20 to-neon-violet/20 border border-neon-cyan/40 text-base font-display font-bold text-white">
+          <span>06. Start Direct Inquiry</span>
+          <i data-lucide="sparkles" class="w-4 h-4 text-neon-cyan"></i>
         </a>
       </div>
-    </section>
 
-    <section data-animate>
-      <h2>Top Skills</h2>
-      <ul>
-        <li>Flutter / Dart / Android (Java & Kotlin)</li>
-        <li>State Management: Riverpod, GetX, Provider</li>
-        <li>Firebase, RESTful APIs, MVC / MVVM Architecture</li>
-        <li>Generative AI Integration, Data Analysis</li>
-      </ul>
-    </section>
+    </div>
 
-    <section data-animate>
-      <h2>Education</h2>
-      <ul>
-        <li><strong>Bachelor of Information Management (BIM)</strong> — Nagarjuna College of IT (2015–2020)</li>
-        <li><strong>+2 Business Administration</strong> — Moon Light Higher Secondary School (2013–2015)</li>
-        <li><strong>SLC</strong> — Future Stars High School (2007–2012)</li>
-      </ul>
-    </section>
-  </main>
+    <!-- Mobile Drawer Footer Socials -->
+    <div class="pt-6 border-t border-noir-800 space-y-3">
+      <div class="grid grid-cols-2 gap-2.5">
+        <a 
+          href="https://linkedin.com/in/brishavshakya" 
+          target="_blank" 
+          rel="noreferrer" 
+          class="flex items-center justify-center gap-2 p-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-xs font-mono text-blue-400 font-semibold"
+        >
+          <i data-lucide="activity" class="w-4 h-4"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a 
+          href="https://instagram.com/brishavshakya_" 
+          target="_blank" 
+          rel="noreferrer" 
+          class="flex items-center justify-center gap-2 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs font-mono text-rose-400 font-semibold"
+        >
+          <i data-lucide="zodiac-aries" class="w-4 h-4"></i>
+          <span>Instagram</span>
+        </a>
+      </div>
+      <div class="text-center text-[11px] font-mono text-neutral-500">
+        Lalitpur, Bagmati • bishopshakya@gmail.com
+      </div>
+    </div>
 
-  <footer>
-    © 2025 Brishav Shakya — <a href="https://brishav.com.np">brishav.com.np</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative z-20 min-h-[92vh] flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      
+      <!-- Text Side -->
+      <div class="lg:col-span-8 space-y-6 sm:space-y-8">
+        
+        <!-- Live Status Capsule -->
+        <div class="inline-flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3.5 py-1.5 rounded-full bg-noir-900/90 border border-noir-700/80 backdrop-blur-md shadow-inner-glare max-w-full">
+          <div class="relative flex items-center justify-center flex-shrink-0">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-[1.5px] bg-gradient-to-r from-neon-cyan via-purple-500 to-neon-violet animate-spin-slow">
+              <div class="w-full h-full rounded-full bg-noir-950 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="https://brishavshakya.com.np/public_html/profile.jpg" 
+                  alt="Brishav" 
+                  class="w-full h-full object-cover rounded-full"
+                  onerror="this.src='https://placehold.co/80x80/101015/00f2fe?text=BS'"
+                />
+              </div>
+            </div>
+            <span class="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
+            </span>
+          </div>
+          <span class="text-[11px] sm:text-xs font-mono tracking-wide text-neutral-300 truncate">
+            Available for Senior Architectural & Lead Contracts
+          </span>
+        </div>
+
+        <!-- Hero Headline -->
+        <div class="space-y-3 sm:space-y-4">
+          <h1 class="fluid-hero-title font-display font-black tracking-tight text-white">
+            ARCHITECTING <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-blue-400 to-neon-violet">
+              DIGITAL LEAP.
+            </span>
+          </h1>
+          <p class="text-base sm:text-xl lg:text-2xl text-neutral-400 max-w-2xl font-light leading-relaxed">
+            I am <span class="text-white font-medium">Brishav Shakya</span> — a Senior Computer Engineer & Mobile Specialist based in Lalitpur, Nepal. For 7+ years, I have architected high-performance Flutter systems, resilient Node.js backends, and tactile user products.
+          </p>
+        </div>
+
+        <!-- Hero Action Buttons -->
+        <div class="space-y-4 pt-1">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <a href="#projects" class="magnetic-trigger group w-full sm:w-auto px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-black font-display font-bold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-3 hover:bg-neon-cyan transition-all shadow-glow-cyan active:scale-98">
+              <span>EXPLORE MASTERWORKS</span>
+              <i data-lucide="arrow-down-right" class="w-4 h-4 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></i>
+            </a>
+
+            <a href="#contact" class="magnetic-trigger w-full sm:w-auto px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl bg-noir-850 border border-noir-700 text-neutral-300 font-display font-bold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-3 hover:text-white hover:border-neutral-500 hover:bg-noir-800 transition-all">
+              <i data-lucide="sparkles" class="w-4 h-4 text-neon-cyan"></i>
+              <span>CALCULATE ESTIMATE</span>
+            </a>
+          </div>
+
+          <!-- Prominent Mobile-Responsive Social Pills -->
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
+            <span class="text-[11px] font-mono text-neutral-500 uppercase tracking-widest w-full xs:w-auto mb-1 xs:mb-0">Direct Signals:</span>
+            
+            <a 
+              href="https://linkedin.com/in/brishavshakya" 
+              target="_blank" 
+              rel="noreferrer" 
+              class="magnetic-trigger group flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-noir-900 border border-noir-700/80 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all"
+            >
+              <i data-lucide="activity" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span class="text-xs font-mono text-neutral-300 group-hover:text-blue-300 transition-colors">in/brishavshakya</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3 text-neutral-500 group-hover:text-blue-400 transition-transform"></i>
+            </a>
+
+            <a 
+              href="https://instagram.com/brishavshakya_" 
+              target="_blank" 
+              rel="noreferrer" 
+              class="magnetic-trigger group flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-noir-900 border border-noir-700/80 hover:border-rose-500/50 hover:bg-rose-500/10 transition-all"
+            >
+              <i data-lucide="zodiac-aries" class="w-3.5 h-3.5 text-rose-400"></i>
+              <span class="text-xs font-mono text-neutral-300 group-hover:text-rose-300 transition-colors">@brishavshakya_</span>
+              <i data-lucide="arrow-up-right" class="w-3 h-3 text-neutral-500 group-hover:text-rose-400 transition-transform"></i>
+            </a>
+
+            <a 
+              href="mailto:bishopshakya@gmail.com" 
+              class="magnetic-trigger group flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-noir-900 border border-noir-700/80 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all"
+            >
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-neutral-400 group-hover:text-neon-cyan transition-colors"></i>
+              <span class="text-xs font-mono text-neutral-400 group-hover:text-neutral-200">Email</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Key Metrics Strip (Responsive 2-col on mobile, 4-col on tablet/desktop) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-noir-800/80">
+          <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-noir-900/60 border border-noir-800">
+            <div class="text-2xl sm:text-4xl font-display font-black text-white counter" data-target="7">0</div>
+            <div class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-400 mt-0.5">Years Experience</div>
+          </div>
+          <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-noir-900/60 border border-noir-800">
+            <div class="text-2xl sm:text-4xl font-display font-black text-neon-cyan counter" data-target="29">0</div>
+            <div class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-400 mt-0.5">Shipped Apps</div>
+          </div>
+          <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-noir-900/60 border border-noir-800">
+            <div class="text-2xl sm:text-4xl font-display font-black text-white counter" data-target="25">0</div>
+            <div class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-400 mt-0.5">Happy Partners</div>
+          </div>
+          <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-noir-900/60 border border-noir-800">
+            <div class="text-2xl sm:text-4xl font-display font-black text-neon-emerald">99.9%</div>
+            <div class="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-neutral-400 mt-0.5">SLA Reliability</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Visual 3D Interactive Device Mockup (Scaled for Mobile Viewports) -->
+      <div class="lg:col-span-4 flex justify-center card-3d-wrap w-full max-w-xs mx-auto">
+        <div class="card-3d relative w-full max-w-[290px] sm:max-w-xs rounded-[38px] sm:rounded-[44px] p-2.5 sm:p-3 bg-gradient-to-b from-neutral-700 via-noir-850 to-neutral-900 border border-neutral-700 shadow-2xl shadow-cyan-500/10 hover:shadow-glow-cyan transition-all duration-300">
+          <div class="glare-effect"></div>
+          
+          <!-- Outer Phone Frame -->
+          <div class="relative w-full h-[460px] sm:h-[520px] rounded-[32px] sm:rounded-[36px] bg-noir-950 border border-noir-700 overflow-hidden flex flex-col justify-between p-3.5 sm:p-4">
+            
+            <!-- Dynamic Island / Speaker Notch -->
+            <div class="absolute top-2.5 sm:top-3 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-4 sm:h-5 bg-black rounded-full z-30 flex items-center justify-between px-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-neutral-700"></span>
+              <span class="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-neutral-900 border border-neutral-800"></span>
+            </div>
+
+            <!-- Mockup Header -->
+            <div class="pt-5 sm:pt-6 flex justify-between items-center z-20">
+              <div class="flex items-center gap-1.5">
+                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-display font-bold text-[10px] sm:text-xs">
+                  B
+                </div>
+                <span class="text-[11px] sm:text-xs font-mono font-semibold tracking-wider text-white">NEPSE IPO PRO</span>
+              </div>
+              <span class="text-[9px] sm:text-[10px] font-mono text-neon-emerald px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">LIVE V2.4</span>
+            </div>
+
+            <!-- Mockup Screen Core Data Visualization -->
+            <div class="space-y-3 sm:space-y-4 my-auto z-20">
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-900 border border-noir-700/80 space-y-1.5 sm:space-y-2">
+                <div class="flex justify-between text-[10px] sm:text-[11px] text-neutral-400 font-mono">
+                  <span>Batch Submission</span>
+                  <span class="text-neon-cyan">8 Demat Synced</span>
+                </div>
+                <div class="w-full bg-noir-800 h-1.5 sm:h-2 rounded-full overflow-hidden">
+                  <div class="bg-gradient-to-r from-neon-cyan to-blue-500 h-full w-[85%] rounded-full"></div>
+                </div>
+                <div class="flex justify-between text-[9px] sm:text-[10px] text-neutral-500 font-mono">
+                  <span>Latency: 142ms</span>
+                  <span>Queue: OK</span>
+                </div>
+              </div>
+
+              <!-- Interactive Mockup Trigger Cards -->
+              <div class="p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-noir-850 to-noir-900 border border-noir-700/60 flex items-center gap-2.5 sm:gap-3">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 font-bold text-xs sm:text-sm">
+                  🩸
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white">Blood For Me</div>
+                  <div class="text-[9px] sm:text-[10px] text-neutral-400">Emergency Push Network</div>
+                </div>
+                <span class="ml-auto text-[10px] sm:text-xs text-neutral-500 font-mono">Active</span>
+              </div>
+
+              <div class="p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-noir-850 to-noir-900 border border-noir-700/60 flex items-center gap-2.5 sm:gap-3">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-xs sm:text-sm">
+                  ⚡
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white">Digital HRS</div>
+                  <div class="text-[9px] sm:text-[10px] text-neutral-400">Geo-Fenced Operations</div>
+                </div>
+                <span class="ml-auto text-[10px] sm:text-xs text-neutral-500 font-mono">Ready</span>
+              </div>
+            </div>
+
+            <!-- Mockup Bottom Status Bar -->
+            <div class="pt-2 border-t border-noir-800 flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-neutral-500 z-20">
+              <span>Flutter 3.x / Dart</span>
+              <span class="text-neon-cyan">60 FPS Native</span>
+            </div>
+
+            <!-- Soft Glow inside phone -->
+            <div class="absolute -bottom-10 -right-10 w-36 h-36 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MARQUEE TICKER OF RECOGNITION & STACK -->
+  <div class="border-y border-noir-800/80 bg-noir-900/60 py-3 sm:py-4 overflow-hidden relative z-20 backdrop-blur-md">
+    <div class="animate-marquee flex items-center gap-8 sm:gap-12 font-mono text-[11px] sm:text-xs text-neutral-400 uppercase tracking-widest whitespace-nowrap">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-neon-cyan"></span>
+        <span class="text-white font-bold">FLUTTER HYPER-PERFORMANCE</span>
+      </div>
+      <span>•</span>
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-neon-violet"></span>
+        <span class="text-white font-bold">NODE.JS ENTERPRISE MICROSERVICES</span>
+      </div>
+      <span>•</span>
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-neon-emerald"></span>
+        <span class="text-white font-bold">FINTECH BULK ENGINE (NEPSE)</span>
+      </div>
+      <span>•</span>
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-neon-amber"></span>
+        <span class="text-white font-bold">HUMAN-CENTERED FIGMA SYSTEMS</span>
+      </div>
+      <span>•</span>
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+        <span class="text-white font-bold">COMMUNITY EMERGENCY DISPATCH</span>
+      </div>
+      <span>•</span>
+      <!-- Duplicate for infinite seamless scroll -->
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-neon-cyan"></span>
+        <span class="text-white font-bold">FLUTTER HYPER-PERFORMANCE</span>
+      </div>
+      <span>•</span>
+      <div class="flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-neon-violet"></span>
+        <span class="text-white font-bold">NODE.JS ENTERPRISE MICROSERVICES</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCIPLINES & ARSENAL (BENTO GRID) -->
+  <section id="disciplines" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-8 sm:space-y-12">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-noir-800 pb-6 sm:pb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-neon-cyan font-bold">01 // Architectural Capabilities</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-black text-white mt-1.5">Disciplines & Arsenal.</h2>
+      </div>
+      <p class="text-neutral-400 text-xs sm:text-sm max-w-md">
+        Structured engineering over superficial hacks. Delivering resilient systems calibrated for high user density and minimal maintenance overhead.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6 card-3d-wrap">
+
+      <!-- Bento 1: Flutter Ecosystem (Featured Large) -->
+      <div class="md:col-span-8 p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d relative overflow-hidden group hover:border-cyan-500/40 transition-colors">
+        <div class="glare-effect"></div>
+        <div class="relative z-10 space-y-5 sm:space-y-6">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-neon-cyan">
+              <i data-lucide="smartphone" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <span class="text-[11px] font-mono text-neutral-500 uppercase tracking-widest">Primary Specialization</span>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-xl sm:text-3xl font-display font-bold text-white">Cross-Platform Mobile Mastery</h3>
+            <p class="text-neutral-400 text-xs sm:text-base leading-relaxed max-w-xl">
+              Building bulletproof iOS and Android experiences using Flutter with Clean Architecture and BLoC/Riverpod state governance. Zero dropped frames, offline SQLite caches, dynamic deep-links, and seamless platform channel integrations.
+            </p>
+          </div>
+
+          <!-- Stack Tags -->
+          <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+            <span class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-noir-800 border border-noir-700 text-[11px] sm:text-xs font-mono text-neutral-300">Flutter / Dart</span>
+            <span class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-noir-800 border border-noir-700 text-[11px] sm:text-xs font-mono text-neutral-300">BLoC & Riverpod</span>
+            <span class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-noir-800 border border-noir-700 text-[11px] sm:text-xs font-mono text-neutral-300">Kotlin & Java</span>
+            <span class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-noir-800 border border-noir-700 text-[11px] sm:text-xs font-mono text-neutral-300">Fastlane CI/CD</span>
+            <span class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-noir-800 border border-noir-700 text-[11px] sm:text-xs font-mono text-neutral-300">Offline-First Sync</span>
+          </div>
+        </div>
+        <div class="absolute -right-10 -bottom-10 w-52 h-52 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+
+      <!-- Bento 2: Backend Architecture -->
+      <div class="md:col-span-4 p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d relative overflow-hidden group hover:border-violet-500/40 transition-colors">
+        <div class="glare-effect"></div>
+        <div class="relative z-10 space-y-4 sm:space-y-6">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-neon-violet">
+            <i data-lucide="server" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-lg sm:text-2xl font-display font-bold text-white">Node.js Backends</h3>
+            <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+              High-throughput RESTful services, transactional integrity, rate-limiting, and WebSocket streams that feed mobile apps with deterministic speed.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+            <span class="px-2.5 py-1 rounded-lg bg-noir-800 border border-noir-700 text-[10px] sm:text-[11px] font-mono text-neutral-300">Node / Express</span>
+            <span class="px-2.5 py-1 rounded-lg bg-noir-800 border border-noir-700 text-[10px] sm:text-[11px] font-mono text-neutral-300">PostgreSQL / Mongo</span>
+            <span class="px-2.5 py-1 rounded-lg bg-noir-800 border border-noir-700 text-[10px] sm:text-[11px] font-mono text-neutral-300">Redis Cache</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento 3: UI/UX & Design Tokens -->
+      <div class="md:col-span-4 p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d relative overflow-hidden group hover:border-amber-500/40 transition-colors">
+        <div class="glare-effect"></div>
+        <div class="relative z-10 space-y-4 sm:space-y-6">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-neon-amber">
+            <i data-lucide="figma" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-lg sm:text-2xl font-display font-bold text-white">Design Systems</h3>
+            <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+              Figma component libraries, fluid micro-interactions, responsive grids, and design tokens that map 1:1 with code without developer friction.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+            <span class="px-2.5 py-1 rounded-lg bg-noir-800 border border-noir-700 text-[10px] sm:text-[11px] font-mono text-neutral-300">Figma Tokens</span>
+            <span class="px-2.5 py-1 rounded-lg bg-noir-800 border border-noir-700 text-[10px] sm:text-[11px] font-mono text-neutral-300">Micro-Interactions</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento 4: Engineering Philosophy & Toolchain -->
+      <div class="md:col-span-8 p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d relative overflow-hidden group hover:border-emerald-500/40 transition-colors">
+        <div class="glare-effect"></div>
+        <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 items-center">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-neon-emerald">
+              <i data-lucide="git-branch" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-display font-bold text-white">Defensive Engineering</h3>
+            <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+              Strict linting policies, regression test suites, reproducible builds, and automated crash analytics via Sentry and Firebase.
+            </p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-noir-950 border border-noir-800 font-mono text-xs space-y-2.5 text-neutral-400">
+            <div class="text-neutral-500 text-[11px]">// Production Check</div>
+            <div class="flex items-center justify-between text-neutral-300">
+              <span>flutter analyze</span>
+              <span class="text-neon-emerald font-bold">PASS (0 issues)</span>
+            </div>
+            <div class="flex items-center justify-between text-neutral-300">
+              <span>test coverage</span>
+              <span class="text-neon-cyan font-bold">89.4%</span>
+            </div>
+            <div class="flex items-center justify-between text-neutral-300">
+              <span>start latency</span>
+              <span class="text-neon-amber font-bold">&lt; 280ms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DEDICATED ABOUT & INTERACTIVE PROFILE SECTION -->
+  <section id="about" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-8 sm:space-y-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-noir-800 pb-6 sm:pb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-neon-cyan font-bold">01.5 // The Craftsman</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-black text-white mt-1.5">Engineering Mindset.</h2>
+      </div>
+      <p class="text-neutral-400 text-xs sm:text-sm max-w-md">
+        A look into the person behind the code: balancing microsecond mobile optimization with human-centered product clarity.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
+      
+      <!-- Interactive Animated Circular Profile Avatar Frame (Fluid size: w-48 on mobile, w-72 on desktop) -->
+      <div class="lg:col-span-5 flex flex-col items-center justify-center space-y-5 sm:space-y-6">
+        <div class="relative group card-3d-wrap">
+          
+          <!-- Luminous Orbital Rings -->
+          <div class="absolute -inset-3 sm:-inset-4 rounded-full border border-cyan-500/20 animate-spin-slow pointer-events-none"></div>
+          <div class="absolute -inset-6 sm:-inset-8 rounded-full border border-dashed border-violet-500/20 animate-spin-slow pointer-events-none" style="animation-direction: reverse; animation-duration: 35s;"></div>
+          
+          <!-- Outer Glow -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-neon-cyan/20 via-neon-violet/20 to-emerald-500/20 blur-xl sm:blur-2xl group-hover:blur-3xl transition-all opacity-70 group-hover:opacity-100"></div>
+
+          <!-- Main Circular Container -->
+          <div class="card-3d relative w-48 h-48 xs:w-56 xs:h-56 sm:w-72 sm:h-72 rounded-full p-2 bg-gradient-to-tr from-cyan-400 via-indigo-600 to-neon-violet shadow-2xl shadow-cyan-500/20">
+            <div class="w-full h-full rounded-full overflow-hidden bg-noir-950 relative border-4 border-noir-900 group-hover:scale-[1.02] transition-transform duration-500">
+              
+              <img 
+                src="https://brishavshakya.com.np/public_html/profile.jpg" 
+                alt="Brishav Shakya" 
+                class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                onerror="this.src='https://placehold.co/400x400/101015/00f2fe?text=Brishav+Shakya'"
+              />
+
+              <!-- Glass overlay shine -->
+              <div class="absolute inset-0 bg-gradient-to-t from-noir-950 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-opacity"></div>
+              
+              <!-- Holographic scanline sweep effect -->
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/10 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 ease-in-out"></div>
+            </div>
+
+            <!-- Floating Status Tag -->
+            <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-noir-900/90 border border-noir-700 backdrop-blur-xl shadow-xl flex items-center gap-2 whitespace-nowrap">
+              <span class="w-2 h-2 rounded-full bg-neon-emerald animate-pulse"></span>
+              <span class="text-[11px] sm:text-xs font-mono font-medium text-white">Lalitpur, Nepal • 7+ Yrs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Icons beneath Avatar -->
+        <div class="flex items-center gap-2.5 sm:gap-3 pt-2">
+          <a 
+            href="https://linkedin.com/in/brishavshakya" 
+            target="_blank" 
+            rel="noreferrer" 
+            class="magnetic-trigger px-3.5 py-2 rounded-xl bg-noir-900 border border-noir-700 text-xs font-mono text-neutral-300 hover:text-white hover:border-blue-500/60 hover:bg-blue-500/10 hover:shadow-glow-linkedin flex items-center gap-2 transition-all min-h-[44px]"
+          >
+            <i data-lucide="activity" class="w-4 h-4 text-blue-400"></i>
+            <span>LinkedIn</span>
+          </a>
+
+          <a 
+            href="https://instagram.com/brishavshakya_" 
+            target="_blank" 
+            rel="noreferrer" 
+            class="magnetic-trigger px-3.5 py-2 rounded-xl bg-noir-900 border border-noir-700 text-xs font-mono text-neutral-300 hover:text-white hover:border-rose-500/60 hover:bg-rose-500/10 hover:shadow-glow-instagram flex items-center gap-2 transition-all min-h-[44px]"
+          >
+            <i data-lucide="zodiac-aries" class="w-4 h-4 text-rose-400"></i>
+            <span>Instagram</span>
+          </a>
+
+          <a 
+            href="mailto:bishopshakya@gmail.com" 
+            class="magnetic-trigger p-2.5 rounded-xl bg-noir-900 border border-noir-700 text-neutral-400 hover:text-neon-cyan hover:border-cyan-500/50 transition-all min-h-[44px] min-w-[44px] flex items-center justify-center"
+            title="Email Brishav"
+          >
+            <i data-lucide="mail" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- About Content -->
+      <div class="lg:col-span-7 space-y-5 sm:space-y-6">
+        <div class="space-y-3 sm:space-y-4">
+          <h3 class="text-xl sm:text-3xl font-display font-bold text-white leading-snug">
+            "Software should feel like an extension of thought — frictionless, deterministic, and fast."
+          </h3>
+          <p class="text-neutral-400 text-xs sm:text-base leading-relaxed">
+            I am <strong class="text-white font-semibold">Brishav Shakya</strong>, a Senior Computer Engineer based in Lalitpur, Bagmati Province. For seven years, I have architected high-performance mobile software that powers critical financial transactions (such as <em class="text-neon-cyan">Bulk IPO Apply NEPSE</em>), emergency medical response (<em class="text-rose-400">Blood For Me</em>), and enterprise operations (<em class="text-cyan-400">Digital HRS</em>).
+          </p>
+          <p class="text-neutral-400 text-xs sm:text-base leading-relaxed">
+            When I am not orchestrating BLoC state governance or optimizing Node.js query pipelines, you will find me embarking on high-altitude Himalayan treks, documenting architectural textures, or experimenting with interactive graphics.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2">
+          <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-noir-900 border border-noir-800">
+            <span class="text-[10px] font-mono uppercase text-neutral-500 block">Degree</span>
+            <span class="text-xs sm:text-sm font-bold text-white">B.E. Computer Engineering</span>
+          </div>
+          <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-noir-900 border border-noir-800">
+            <span class="text-[10px] font-mono uppercase text-neutral-500 block">Focus</span>
+            <span class="text-xs sm:text-sm font-bold text-neon-cyan">Flutter & Distributed APIs</span>
+          </div>
+          <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-noir-900 border border-noir-800">
+            <span class="text-[10px] font-mono uppercase text-neutral-500 block">Availability</span>
+            <span class="text-xs sm:text-sm font-bold text-neon-emerald">Open for Strategic Contracts</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SELECTED WORK / CASE ARCHIVE -->
+  <section id="projects" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-8 sm:space-y-12">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-noir-800 pb-6 sm:pb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-neon-cyan font-bold">02 // Production Deployments</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-black text-white mt-1.5">Selected Masterworks.</h2>
+      </div>
+      
+      <!-- Interactive Filter Controls (Scrollable horizontally on mobile) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 max-w-full" id="project-filters">
+        <button data-filter="all" class="filter-btn active flex-shrink-0 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-mono bg-white text-black font-semibold transition-all">All Projects</button>
+        <button data-filter="fintech" class="filter-btn flex-shrink-0 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-mono bg-noir-900 border border-noir-700 text-neutral-300 hover:text-white transition-all">Fintech</button>
+        <button data-filter="healthcare" class="filter-btn flex-shrink-0 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-mono bg-noir-900 border border-noir-700 text-neutral-300 hover:text-white transition-all">Healthcare</button>
+        <button data-filter="enterprise" class="filter-btn flex-shrink-0 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-mono bg-noir-900 border border-noir-700 text-neutral-300 hover:text-white transition-all">Enterprise</button>
+      </div>
+    </div>
+
+    <!-- Case Studies Container -->
+    <div class="space-y-8 sm:space-y-12" id="projects-container">
+
+      <!-- PROJECT 1: Bulk IPO Apply (NEPSE) -->
+      <article data-category="fintech" class="project-item card-3d p-6 sm:p-10 lg:p-12 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 hover:border-cyan-500/50 transition-all duration-300 relative overflow-hidden group">
+        <div class="glare-effect"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
+          
+          <div class="lg:col-span-7 space-y-4 sm:space-y-6">
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 text-neon-cyan border border-cyan-500/20 font-semibold">FINTECH AUTOMATION</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-noir-800 text-neutral-300 border border-noir-700">NEPAL STOCK MARKET</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-noir-800 text-neutral-300 border border-noir-700">FLUTTER / NODE</span>
+            </div>
+
+            <div class="space-y-2 sm:space-y-3">
+              <h3 class="text-2xl sm:text-4xl font-display font-black text-white group-hover:text-neon-cyan transition-colors">
+                Bulk IPO Apply — NEPSE
+              </h3>
+              <p class="text-neutral-400 text-xs sm:text-base leading-relaxed">
+                A mission-critical financial utility engineered to eliminate manual friction during large-scale Nepalese public offerings. Implements multi-Demat portfolio management, rapid parallel submissions via asynchronous task queues, and real-time allotment notifications.
+              </p>
+            </div>
+
+            <!-- Architectural Highlights (Responsive Grid) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4 pt-1">
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Time Saved</span>
+                <span class="text-xs sm:text-sm font-bold text-white">92% per Batch</span>
+              </div>
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Concurrency</span>
+                <span class="text-xs sm:text-sm font-bold text-white">Multi-Thread Sync</span>
+              </div>
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800 col-span-2 sm:col-span-1">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Platform</span>
+                <span class="text-xs sm:text-sm font-bold text-neon-cyan">iOS & Android (Flutter)</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <button onclick="openModal('ipo')" class="magnetic-trigger px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-white text-black font-semibold text-xs hover:bg-neon-cyan transition-all flex items-center gap-2 min-h-[44px]">
+                <span>View Case Blueprint</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </button>
+              <span class="text-[11px] font-mono text-neutral-500">Production Release 2024–2026</span>
+            </div>
+          </div>
+
+          <!-- Interactive Visual Card -->
+          <div class="lg:col-span-5 flex justify-center w-full">
+            <div class="w-full max-w-md h-60 sm:h-72 rounded-2xl bg-gradient-to-br from-noir-850 via-noir-950 to-noir-800 border border-noir-700/80 p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-cyan-500/30 transition-all">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-neutral-400">Terminal Dispatch</span>
+                <span class="text-neon-cyan flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span> 24 Demat Synced</span>
+              </div>
+
+              <!-- Animated Chart Simulation -->
+              <div class="flex items-end gap-2 h-24 sm:h-28 my-auto pt-4 border-b border-noir-800 pb-2">
+                <div class="w-1/6 bg-cyan-900/60 rounded-t h-[40%] transition-all group-hover:h-[60%]"></div>
+                <div class="w-1/6 bg-cyan-700/60 rounded-t h-[55%] transition-all group-hover:h-[75%]"></div>
+                <div class="w-1/6 bg-cyan-500/60 rounded-t h-[70%] transition-all group-hover:h-[90%]"></div>
+                <div class="w-1/6 bg-cyan-400/80 rounded-t h-[45%] transition-all group-hover:h-[65%]"></div>
+                <div class="w-1/6 bg-cyan-300 rounded-t h-[85%] transition-all group-hover:h-[98%] shadow-glow-cyan"></div>
+                <div class="w-1/6 bg-cyan-500/60 rounded-t h-[60%] transition-all group-hover:h-[80%]"></div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-neutral-500">
+                <span>CRN Cryptography</span>
+                <span class="text-emerald-400">Allotment Verified</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- PROJECT 2: Blood For Me -->
+      <article data-category="healthcare" class="project-item card-3d p-6 sm:p-10 lg:p-12 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 hover:border-rose-500/50 transition-all duration-300 relative overflow-hidden group">
+        <div class="glare-effect"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
+          
+          <div class="lg:col-span-7 space-y-4 sm:space-y-6">
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/20 font-semibold">EMERGENCY HEALTHCARE</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-noir-800 text-neutral-300 border border-noir-700">GEO-DISPATCH NETWORK</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-noir-800 text-neutral-300 border border-noir-700">KATHMANDU / LALITPUR</span>
+            </div>
+
+            <div class="space-y-2 sm:space-y-3">
+              <h3 class="text-2xl sm:text-4xl font-display font-black text-white group-hover:text-rose-400 transition-colors">
+                Blood For Me 🩸
+              </h3>
+              <p class="text-neutral-400 text-xs sm:text-base leading-relaxed">
+                An urgent medical coordination platform connecting patients facing trauma or scheduled transfusions with nearby voluntary blood donors. Features instant location radius queries, validated donor rosters, and prioritized emergency notification push banners.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4 pt-1">
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Response Time</span>
+                <span class="text-xs sm:text-sm font-bold text-white">&lt; 3.8 Minutes</span>
+              </div>
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Geo Radius</span>
+                <span class="text-xs sm:text-sm font-bold text-white">Dynamic 15km</span>
+              </div>
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800 col-span-2 sm:col-span-1">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Impact</span>
+                <span class="text-xs sm:text-sm font-bold text-rose-400">Critical Life Aid</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <button onclick="openModal('blood')" class="magnetic-trigger px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-white text-black font-semibold text-xs hover:bg-rose-400 hover:text-black transition-all flex items-center gap-2 min-h-[44px]">
+                <span>View Case Blueprint</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </button>
+              <span class="text-[11px] font-mono text-neutral-500">Cross-Platform Flutter</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex justify-center w-full">
+            <div class="w-full max-w-md h-60 sm:h-72 rounded-2xl bg-gradient-to-br from-rose-950/20 via-noir-950 to-noir-900 border border-noir-700/80 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden group-hover:border-rose-500/40 transition-all">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="text-rose-400 font-bold">RADIAL RADAR SEARCH</span>
+                <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px]">O- NEGATIVE</span>
+              </div>
+
+              <!-- Animated Pulse Rings -->
+              <div class="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto flex items-center justify-center my-1 sm:my-2">
+                <div class="absolute inset-0 rounded-full border border-rose-500/30 animate-ping"></div>
+                <div class="absolute inset-3 rounded-full border border-rose-500/50 animate-pulse"></div>
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-rose-600 flex items-center justify-center text-white font-black text-base sm:text-lg shadow-lg shadow-rose-600/50">
+                  +
+                </div>
+              </div>
+
+              <div class="text-center text-[11px] sm:text-xs font-mono text-neutral-400">
+                12 Donors alerted in Patan & Baneshwor
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- PROJECT 3: Digital HRS -->
+      <article data-category="enterprise" class="project-item card-3d p-6 sm:p-10 lg:p-12 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 hover:border-cyan-500/50 transition-all duration-300 relative overflow-hidden group">
+        <div class="glare-effect"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
+          
+          <div class="lg:col-span-7 space-y-4 sm:space-y-6">
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-semibold">ENTERPRISE HRMS</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-noir-800 text-neutral-300 border border-noir-700">CYCLONE NEPAL INFO TECH</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-noir-800 text-neutral-300 border border-noir-700">GEO-FENCING ATTENDANCE</span>
+            </div>
+
+            <div class="space-y-2 sm:space-y-3">
+              <h3 class="text-2xl sm:text-4xl font-display font-black text-white group-hover:text-cyan-400 transition-colors">
+                Digital HRS
+              </h3>
+              <p class="text-neutral-400 text-xs sm:text-base leading-relaxed">
+                An all-inclusive Human Resource system designed to power multi-branch enterprise teams. Integrates encrypted biometric clock-in, live leave accruals, expense approvals, and real-time location-bounded attendance validation.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4 pt-1">
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Scale</span>
+                <span class="text-xs sm:text-sm font-bold text-white">5,000+ Seats</span>
+              </div>
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Verification</span>
+                <span class="text-xs sm:text-sm font-bold text-white">GPS + Wi-Fi SSID</span>
+              </div>
+              <div class="p-2.5 sm:p-3 rounded-xl bg-noir-950 border border-noir-800 col-span-2 sm:col-span-1">
+                <span class="text-[10px] font-mono text-neutral-500 uppercase block">Engine</span>
+                <span class="text-xs sm:text-sm font-bold text-cyan-400">Flutter Client</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <button onclick="openModal('hrs')" class="magnetic-trigger px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-white text-black font-semibold text-xs hover:bg-cyan-400 hover:text-black transition-all flex items-center gap-2 min-h-[44px]">
+                <span>View Case Blueprint</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </button>
+              <span class="text-[11px] font-mono text-neutral-500">Android & iOS Store Certified</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex justify-center w-full">
+            <div class="w-full max-w-md h-60 sm:h-72 rounded-2xl bg-gradient-to-br from-cyan-950/20 via-noir-950 to-noir-900 border border-noir-700/80 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden group-hover:border-cyan-500/40 transition-all">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="text-neutral-400">Geo-Fence Perimeter</span>
+                <span class="text-neon-emerald">Active In-Radius</span>
+              </div>
+              <div class="p-3 sm:p-4 rounded-xl bg-noir-900/90 border border-noir-800 space-y-1.5 sm:space-y-2 text-xs font-mono">
+                <div class="flex justify-between text-neutral-300">
+                  <span>Shift ID</span>
+                  <span class="text-white">SH-0941</span>
+                </div>
+                <div class="flex justify-between text-neutral-300">
+                  <span>Token</span>
+                  <span class="text-neon-cyan">CONFIRMED (09:01)</span>
+                </div>
+                <div class="flex justify-between text-neutral-300">
+                  <span>Overtime Factor</span>
+                  <span class="text-neon-amber">1.5x Auto-Accrued</span>
+                </div>
+              </div>
+              <div class="text-[10px] sm:text-[11px] font-mono text-neutral-500 text-center">
+                Syncing securely with centralized SQL Cluster
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- PROJECT 4 & 5: Ahpu Order & LCCI Connect (Grid Pair) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        
+        <!-- Ahpu Order -->
+        <article data-category="enterprise" class="project-item card-3d p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden group flex flex-col justify-between">
+          <div class="glare-effect"></div>
+          <div class="space-y-4 sm:space-y-5 relative z-10">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded bg-amber-500/10 text-neon-amber border border-amber-500/20 text-xs font-mono font-semibold">HOSPITALITY POS</span>
+              <span class="text-xs font-mono text-neutral-500">Orea Agency</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-neon-amber transition-colors">Ahpu Order</h3>
+            <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+              Real-time table ordering, automated Kitchen Order Ticket (KOT) printing, and split billing designed for high-density restaurants and lounge bars.
+            </p>
+            <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+              <span class="px-2.5 py-1 rounded-md bg-noir-950 border border-noir-800 text-[10px] sm:text-[11px] font-mono text-neutral-300">Flutter</span>
+              <span class="px-2.5 py-1 rounded-md bg-noir-950 border border-noir-800 text-[10px] sm:text-[11px] font-mono text-neutral-300">Thermal Printer SDK</span>
+              <span class="px-2.5 py-1 rounded-md bg-noir-950 border border-noir-800 text-[10px] sm:text-[11px] font-mono text-neutral-300">Local Wi-Fi Mesh</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-5 sm:pt-6 sm:mt-6 border-t border-noir-800 flex justify-between items-center text-xs font-mono text-neutral-400 relative z-10">
+            <span>Latency: &lt; 50ms</span>
+            <button onclick="openModal('ahpu')" class="text-white hover:text-neon-amber flex items-center gap-1 font-bold min-h-[44px]">Details <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+          </div>
+        </article>
+
+        <!-- LCCI Connect -->
+        <article data-category="enterprise" class="project-item card-3d p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 hover:border-violet-500/50 transition-all duration-300 relative overflow-hidden group flex flex-col justify-between">
+          <div class="glare-effect"></div>
+          <div class="space-y-4 sm:space-y-5 relative z-10">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded bg-purple-500/10 text-neon-violet border border-purple-500/20 text-xs font-mono font-semibold">CIVIC ECOSYSTEM</span>
+              <span class="text-xs font-mono text-neutral-500">Lalitpur District</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-neon-violet transition-colors">LCCI Connect</h3>
+            <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+              The official portal for the Lalitpur Chamber of Commerce and Industry. Connects thousands of local enterprises, business renewal registries, and public trade bulletins.
+            </p>
+            <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+              <span class="px-2.5 py-1 rounded-md bg-noir-950 border border-noir-800 text-[10px] sm:text-[11px] font-mono text-neutral-300">Flutter</span>
+              <span class="px-2.5 py-1 rounded-md bg-noir-950 border border-noir-800 text-[10px] sm:text-[11px] font-mono text-neutral-300">Identity QR</span>
+              <span class="px-2.5 py-1 rounded-md bg-noir-950 border border-noir-800 text-[10px] sm:text-[11px] font-mono text-neutral-300">REST API</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-5 sm:pt-6 sm:mt-6 border-t border-noir-800 flex justify-between items-center text-xs font-mono text-neutral-400 relative z-10">
+            <span>Members: 4,500+</span>
+            <button onclick="openModal('lcci')" class="text-white hover:text-neon-violet flex items-center gap-1 font-bold min-h-[44px]">Details <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CAREER TIMELINE & JOURNEY -->
+  <section id="experience" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-8 sm:space-y-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-noir-800 pb-6 sm:pb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-neon-cyan font-bold">03 // Proven Trajectory</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-black text-white mt-1.5">7+ Years of Engineering.</h2>
+      </div>
+      <p class="text-neutral-400 text-xs sm:text-sm max-w-md">
+        From native Android fundamentals to leading full cross-platform architectures for enterprise organizations and consumer fintechs.
+      </p>
+    </div>
+
+    <div class="space-y-4 sm:space-y-6">
+      
+      <!-- Timeline Card 1 -->
+      <div class="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/80 border border-noir-700/80 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start hover:border-neutral-500 transition-colors">
+        <div class="md:col-span-3 text-xs font-mono text-neon-cyan uppercase tracking-widest font-semibold">
+          2022 — PRESENT
+        </div>
+        <div class="md:col-span-6 space-y-2">
+          <h3 class="text-lg sm:text-xl font-display font-bold text-white">Lead Mobile Architect & Independent Consultant</h3>
+          <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+            Directing mobile strategy for growth-stage fintech and enterprise platforms. Specialized in refactoring monolithic codebases into scalable clean Flutter architectures and high-density Node services.
+          </p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end">
+          <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-medium">Lalitpur & Remote</span>
+        </div>
+      </div>
+
+      <!-- Timeline Card 2 -->
+      <div class="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/80 border border-noir-700/80 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start hover:border-neutral-500 transition-colors">
+        <div class="md:col-span-3 text-xs font-mono text-neutral-500 uppercase tracking-widest font-semibold">
+          2019 — 2022
+        </div>
+        <div class="md:col-span-6 space-y-2">
+          <h3 class="text-lg sm:text-xl font-display font-bold text-white">Senior Mobile Software Engineer</h3>
+          <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+            Shipped and maintained core client applications including Digital HRS and Ahpu Order. Implemented continuous integration workflows and automated Google Play / App Store distribution pipelines.
+          </p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end">
+          <span class="px-3 py-1 rounded-full bg-noir-800 text-neutral-400 border border-noir-700 text-xs font-mono">Kathmandu Valley</span>
+        </div>
+      </div>
+
+      <!-- Timeline Card 3 -->
+      <div class="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/80 border border-noir-700/80 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start hover:border-neutral-500 transition-colors">
+        <div class="md:col-span-3 text-xs font-mono text-neutral-500 uppercase tracking-widest font-semibold">
+          2017 — 2019
+        </div>
+        <div class="md:col-span-6 space-y-2">
+          <h3 class="text-lg sm:text-xl font-display font-bold text-white">Computer Engineering & Android Developer</h3>
+          <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+            Graduated with a Bachelor of Computer Engineering. Authored native Android (Java/Kotlin) applications and database backends before transitioning into full-time Flutter specialization.
+          </p>
+        </div>
+        <div class="md:col-span-3 flex md:justify-end">
+          <span class="px-3 py-1 rounded-full bg-noir-800 text-neutral-400 border border-noir-700 text-xs font-mono">Engineering Degree</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLIENT TESTIMONIALS & SIGNALS -->
+  <section id="testimonials" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-8 sm:space-y-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-noir-800 pb-6 sm:pb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-neon-cyan font-bold">04 // Endorsements</span>
+        <h2 class="text-3xl sm:text-5xl font-display font-black text-white mt-1.5">What Partners Say.</h2>
+      </div>
+      <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Verified Direct Testimonials</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 card-3d-wrap">
+      
+      <!-- Testimonial 1 -->
+      <div class="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d flex flex-col justify-between space-y-4 sm:space-y-6">
+        <div class="glare-effect"></div>
+        <div class="space-y-3 sm:space-y-4 relative z-10">
+          <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+          <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed italic">
+            "Brishav delivered our complex application in record time and the quality blew our stakeholders away. Our monthly engagement jumped 28% after his performance refactor. Absolutely recommend."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-noir-800 flex items-center gap-3 relative z-10">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center font-bold text-black text-xs font-display flex-shrink-0">
+            KS
+          </div>
+          <div>
+            <div class="font-display font-bold text-white text-sm">Kushal Shakya</div>
+            <div class="text-[11px] font-mono text-neutral-400">Chief Product Officer, Patan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d flex flex-col justify-between space-y-4 sm:space-y-6">
+        <div class="glare-effect"></div>
+        <div class="space-y-3 sm:space-y-4 relative z-10">
+          <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+          <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed italic">
+            "Working with Brishav is effortless. He understands the business logic first, asks the right architectural questions, and delivers code that never breaks under stress."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-noir-800 flex items-center gap-3 relative z-10">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-purple-500 to-rose-400 flex items-center justify-center font-bold text-white text-xs font-display flex-shrink-0">
+            AB
+          </div>
+          <div>
+            <div class="font-display font-bold text-white text-sm">Aliv Raj Bajracharya</div>
+            <div class="text-[11px] font-mono text-neutral-400">Founder & CEO, Patan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-noir-900/90 border border-noir-700/80 card-3d flex flex-col justify-between space-y-4 sm:space-y-6">
+        <div class="glare-effect"></div>
+        <div class="space-y-3 sm:space-y-4 relative z-10">
+          <div class="flex text-amber-400 gap-1 text-sm">★★★★★</div>
+          <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed italic">
+            "We had a tight sprint deadline and an ambiguous brief. Brishav turned both into a polished, high-performing mobile app in under 14 days. Exceptional velocity and craft."
+          </p>
+        </div>
+        <div class="pt-4 border-t border-noir-800 flex items-center gap-3 relative z-10">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-emerald-500 to-cyan-400 flex items-center justify-center font-bold text-black text-xs font-display flex-shrink-0">
+            RS
+          </div>
+          <div>
+            <div class="font-display font-bold text-white text-sm">Ravi Shakya</div>
+            <div class="text-[11px] font-mono text-neutral-400">Creative Director, Kathmandu</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE PROJECT CALCULATOR & CONTACT SECTION -->
+  <section id="contact" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 border-t border-noir-800">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- Contact Pitch -->
+      <div class="lg:col-span-5 space-y-6 sm:space-y-8">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-neon-cyan font-bold">05 // Direct Dispatch</span>
+          <h2 class="text-3xl sm:text-5xl font-display font-black text-white mt-1.5 leading-[1.05]">
+            Let's build your next milestone.
+          </h2>
+        </div>
+
+        <p class="text-neutral-400 text-xs sm:text-base leading-relaxed">
+          Whether you need a greenfield cross-platform mobile application, an audit of an existing Flutter codebase, or high-throughput API architecture — let's configure your roadmap.
+        </p>
+
+        <!-- Social Connections & Channels -->
+        <div class="space-y-2.5 sm:space-y-3 pt-2 sm:pt-4 border-t border-noir-800/80">
+          <span class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 block font-semibold">Direct Channels & Profiles</span>
+          
+          <!-- LinkedIn Channel Card -->
+          <a 
+            href="https://linkedin.com/in/brishavshakya" 
+            target="_blank" 
+            rel="noreferrer" 
+            class="magnetic-trigger group flex items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-noir-900 border border-noir-700/80 hover:border-blue-500/60 hover:bg-blue-500/10 hover:shadow-glow-linkedin transition-all min-h-[48px]"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-105 transition-transform flex-shrink-0">
+                <i data-lucide="activity" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+              </div>
+              <div>
+                <div class="text-xs sm:text-sm font-display font-bold text-white group-hover:text-blue-300 transition-colors">LinkedIn</div>
+                <div class="text-[11px] sm:text-xs font-mono text-neutral-400 truncate max-w-[200px] xs:max-w-none">linkedin.com/in/brishavshakya</div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-neutral-500 group-hover:text-blue-400 transition-transform mr-1"></i>
+          </a>
+
+          <!-- Instagram Channel Card -->
+          <a 
+            href="https://instagram.com/brishavshakya_" 
+            target="_blank" 
+            rel="noreferrer" 
+            class="magnetic-trigger group flex items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-noir-900 border border-noir-700/80 hover:border-rose-500/60 hover:bg-rose-500/10 hover:shadow-glow-instagram transition-all min-h-[48px]"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform flex-shrink-0">
+                <i data-lucide="zodiac-aries" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+              </div>
+              <div>
+                <div class="text-xs sm:text-sm font-display font-bold text-white group-hover:text-rose-300 transition-colors">Instagram</div>
+                <div class="text-[11px] sm:text-xs font-mono text-neutral-400">@brishavshakya_</div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-neutral-500 group-hover:text-rose-400 transition-transform mr-1"></i>
+          </a>
+
+          <!-- Direct Email Card -->
+          <a 
+            href="mailto:bishopshakya@gmail.com" 
+            class="magnetic-trigger group flex items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-noir-900 border border-noir-700/80 hover:border-cyan-500/60 hover:bg-cyan-500/10 hover:shadow-glow-cyan transition-all min-h-[48px]"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-neon-cyan group-hover:scale-105 transition-transform flex-shrink-0">
+                <i data-lucide="mail" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+              </div>
+              <div>
+                <div class="text-xs sm:text-sm font-display font-bold text-white group-hover:text-cyan-300 transition-colors">Email Direct</div>
+                <div class="text-[11px] sm:text-xs font-mono text-neutral-400 truncate max-w-[200px] xs:max-w-none">bishopshakya@gmail.com</div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-neutral-500 group-hover:text-neon-cyan transition-transform mr-1"></i>
+          </a>
+
+          <!-- Location Indicator -->
+          <div class="flex items-center gap-2.5 text-neutral-400 pt-2 px-1 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-neon-emerald flex-shrink-0"></span>
+            <span>Lalitpur / Kathmandu Valley, Nepal (UTC +5:45)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Calculator & Contact Form -->
+      <div class="lg:col-span-7">
+        <div class="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-noir-900 border border-noir-700/80 shadow-2xl relative">
+          
+          <h3 class="text-lg sm:text-xl font-display font-bold text-white mb-5 sm:mb-6 flex flex-wrap items-center justify-between gap-2">
+            <span>Project Scope & Estimate Configurator</span>
+            <span class="text-[11px] font-mono font-normal text-neon-cyan bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">Instant Scope</span>
+          </h3>
+
+          <!-- Scope Selection Chips (Touch optimized) -->
+          <div class="space-y-3 sm:space-y-4 mb-5 sm:mb-6">
+            <label class="text-xs font-mono text-neutral-400 uppercase tracking-wider block font-semibold">Select Deliverables</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="scope-selector">
+              <button type="button" data-val="Flutter Mobile App" class="scope-chip px-3 py-3 rounded-xl border border-neon-cyan bg-cyan-500/10 text-neon-cyan text-xs font-mono font-medium text-center transition-all min-h-[44px]">
+                Flutter App
+              </button>
+              <button type="button" data-val="Node.js Backend" class="scope-chip px-3 py-3 rounded-xl border border-noir-700 bg-noir-950 text-neutral-400 text-xs font-mono font-medium text-center hover:border-neutral-500 transition-all min-h-[44px]">
+                Node.js API
+              </button>
+              <button type="button" data-val="UI/UX Figma System" class="scope-chip px-3 py-3 rounded-xl border border-noir-700 bg-noir-950 text-neutral-400 text-xs font-mono font-medium text-center hover:border-neutral-500 transition-all min-h-[44px]">
+                UI/UX Design
+              </button>
+            </div>
+          </div>
+
+          <!-- Form Fields -->
+          <form id="inquiry-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-[11px] font-mono text-neutral-400 uppercase">Your Name</label>
+                <input type="text" id="sender-name" required placeholder="e.g. Kushal" class="w-full px-4 py-3 rounded-xl bg-noir-950 border border-noir-700 text-white placeholder-neutral-600 focus:outline-none focus:border-neon-cyan text-sm transition-colors min-h-[44px]" />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-mono text-neutral-400 uppercase">Your Email</label>
+                <input type="email" id="sender-email" required placeholder="name@company.com" class="w-full px-4 py-3 rounded-xl bg-noir-950 border border-noir-700 text-white placeholder-neutral-600 focus:outline-none focus:border-neon-cyan text-sm transition-colors min-h-[44px]" />
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-[11px] font-mono text-neutral-400 uppercase">Project Details / Requirements</label>
+              <textarea id="sender-message" rows="4" required placeholder="Describe your architecture requirements, timeline expectations, or desired launch date..." class="w-full px-4 py-3 rounded-xl bg-noir-950 border border-noir-700 text-white placeholder-neutral-600 focus:outline-none focus:border-neon-cyan text-sm transition-colors"></textarea>
+            </div>
+
+            <!-- Submit Button (Touch friendly) -->
+            <button type="submit" class="magnetic-trigger w-full py-3.5 sm:py-4 rounded-xl bg-white text-black font-display font-bold text-xs sm:text-sm hover:bg-neon-cyan hover:shadow-glow-cyan transition-all flex items-center justify-center gap-2 transform active:scale-98 min-h-[48px]">
+              <span>DISPATCH INQUIRY TO BRISHAV</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+
+          <!-- Toast Message -->
+          <div id="form-toast" class="hidden mt-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-mono flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+            <span>Inquiry formatted! Opening your email client...</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative z-20 border-t border-noir-800/80 bg-noir-950 py-10 sm:py-12 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 text-xs font-mono text-neutral-500 text-center md:text-left">
+      
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+        <span class="w-2 h-2 rounded-full bg-neon-cyan"></span>
+        <span class="text-neutral-300 font-semibold">Brishav Shakya</span>
+        <span>— Lalitpur, Bagmati Province, Nepal</span>
+      </div>
+
+      <!-- Footer Social Links -->
+      <div class="flex items-center gap-4">
+        <a 
+          href="https://linkedin.com/in/brishavshakya" 
+          target="_blank" 
+          rel="noreferrer" 
+          class="flex items-center gap-1.5 text-neutral-400 hover:text-blue-400 transition-colors p-1"
+        >
+          <i data-lucide="activity" class="w-4 h-4"></i>
+          <span>LinkedIn</span>
+        </a>
+        <span>•</span>
+        <a 
+          href="https://instagram.com/brishavshakya_" 
+          target="_blank" 
+          rel="noreferrer" 
+          class="flex items-center gap-1.5 text-neutral-400 hover:text-rose-400 transition-colors p-1"
+        >
+          <i data-lucide="zodiac-aries" class="w-4 h-4"></i>
+          <span>Instagram</span>
+        </a>
+        <span>•</span>
+        <a 
+          href="mailto:bishopshakya@gmail.com" 
+          class="flex items-center gap-1.5 text-neutral-400 hover:text-white transition-colors p-1"
+        >
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span>Email</span>
+        </a>
+      </div>
+
+      <div>
+        <a href="#hero" class="hover:text-white transition-colors p-1">Back to Top ↑</a>
+      </div>
+
+    </div>
   </footer>
 
+  <!-- CASE STUDY DETAIL MODAL (Scrollable on small screens) -->
+  <div id="case-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6">
+    <div class="bg-noir-900 border border-noir-700 max-w-2xl w-full rounded-2xl sm:rounded-3xl p-6 sm:p-8 relative space-y-5 sm:space-y-6 max-h-[88vh] overflow-y-auto shadow-2xl">
+      
+      <button onclick="closeModal()" aria-label="Close Modal" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-noir-800 text-neutral-400 hover:text-white flex items-center justify-center border border-noir-700 active:scale-95 transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="modal-content" class="space-y-4">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Scroll reveal effect
-    const sections = document.querySelectorAll("[data-animate]");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
+    // 1. Initialize Icons
+    lucide.createIcons();
+
+    // 2. Mobile Drawer Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const menuIcon = document.getElementById('menu-icon');
+    let isMenuOpen = false;
+
+    function toggleMobileMenu() {
+      isMenuOpen = !isMenuOpen;
+      if (isMenuOpen) {
+        mobileDrawer.classList.remove('hidden');
+        setTimeout(() => {
+          mobileDrawer.classList.remove('opacity-0');
+        }, 10);
+        menuIcon.setAttribute('data-lucide', 'x');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        mobileDrawer.classList.add('opacity-0');
+        setTimeout(() => {
+          mobileDrawer.classList.add('hidden');
+        }, 300);
+        menuIcon.setAttribute('data-lucide', 'menu');
+        document.body.classList.remove('overflow-hidden');
+      }
+      lucide.createIcons();
+    }
+
+    function closeMobileMenu() {
+      if (!isMenuOpen) return;
+      isMenuOpen = false;
+      mobileDrawer.classList.add('opacity-0');
+      setTimeout(() => {
+        mobileDrawer.classList.add('hidden');
+      }, 300);
+      menuIcon.setAttribute('data-lucide', 'menu');
+      document.body.classList.remove('overflow-hidden');
+      lucide.createIcons();
+    }
+
+    mobileMenuBtn.addEventListener('click', () => {
+      playBlip(500);
+      toggleMobileMenu();
+    });
+
+    // 3. Live Nepal Time Indicator (UTC+5:45)
+    function updateNepalTime() {
+      const clockElem = document.getElementById('nepal-clock');
+      if (!clockElem) return;
+      
+      const now = new Date();
+      const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const nepalTime = new Date(utcTime + (5.75 * 3600000));
+      
+      const hours = String(nepalTime.getHours()).padStart(2, '0');
+      const minutes = String(nepalTime.getMinutes()).padStart(2, '0');
+      const seconds = String(nepalTime.getSeconds()).padStart(2, '0');
+      clockElem.innerText = `${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateNepalTime, 1000);
+    updateNepalTime();
+
+    // 4. Web Audio Synthesis for Tactile Feedback
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function playBlip(freq = 600, type = 'sine') {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+      } catch (e) {
+        // Audio policy ignore
+      }
+    }
+
+    const audioToggle = document.getElementById('audio-toggle');
+    const soundIcon = document.getElementById('sound-icon');
+    audioToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        soundIcon.setAttribute('data-lucide', 'volume-2');
+        playBlip(750);
+      } else {
+        soundIcon.setAttribute('data-lucide', 'volume-x');
+      }
+      lucide.createIcons();
+    });
+
+    // 5. Desktop-Only Magnetic Cursor (Disabled on touch screens)
+    const isFinePointer = window.matchMedia('(pointer: fine) and (min-width: 1024px)').matches;
+    if (isFinePointer) {
+      const cursorDot = document.querySelector('.cursor-dot');
+      const cursorRing = document.querySelector('.cursor-ring');
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (cursorDot) {
+          cursorDot.style.left = `${mouseX}px`;
+          cursorDot.style.top = `${mouseY}px`;
+        }
+      });
+
+      function renderCursor() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        if (cursorRing) {
+          cursorRing.style.left = `${ringX}px`;
+          cursorRing.style.top = `${ringY}px`;
+        }
+        requestAnimationFrame(renderCursor);
+      }
+      renderCursor();
+
+      document.querySelectorAll('a, button, .card-3d, input, textarea').forEach((el) => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('hovered');
+          playBlip(420);
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('hovered');
+        });
+      });
+    }
+
+    // 6. Ambient Canvas Background
+    const canvas = document.getElementById('ambient-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.color = Math.random() > 0.5 ? 'rgba(0, 242, 254, ' : 'rgba(157, 78, 221, ';
+        this.alpha = Math.random() * 0.3 + 0.1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color + this.alpha + ')';
+        ctx.fill();
+      }
+    }
+
+    const particleCount = window.innerWidth < 768 ? 20 : 40;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    // 7. Interactive 3D Card Tilt with Specular Glare (Applied on mousemove)
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.card-3d').forEach((card) => {
+        const glare = card.querySelector('.glare-effect');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = ((y - centerY) / centerY) * -5;
+          const rotateY = ((x - centerX) / centerX) * 5;
+          
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+          if (glare) {
+            glare.style.opacity = '1';
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12) 0%, transparent 60%)`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          if (glare) {
+            glare.style.opacity = '0';
+          }
+        });
+      });
+    }
+
+    // 8. Interactive Filter for Projects
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        playBlip(620);
+        filterBtns.forEach((b) => {
+          b.classList.remove('active', 'bg-white', 'text-black');
+          b.classList.add('bg-noir-900', 'text-neutral-300');
+        });
+        btn.classList.add('active', 'bg-white', 'text-black');
+        btn.classList.remove('bg-noir-900', 'text-neutral-300');
+
+        const filter = btn.getAttribute('data-filter');
+        projectItems.forEach((item) => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
       });
     });
-    sections.forEach(s => observer.observe(s));
-  </script>
 
+    // 9. Interactive Estimator Scope Selector
+    const scopeChips = document.querySelectorAll('.scope-chip');
+    let selectedScopes = ['Flutter Mobile App'];
+
+    scopeChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        playBlip(550);
+        const val = chip.getAttribute('data-val');
+        if (selectedScopes.includes(val)) {
+          selectedScopes = selectedScopes.filter((s) => s !== val);
+          chip.classList.remove('border-neon-cyan', 'bg-cyan-500/10', 'text-neon-cyan');
+          chip.classList.add('border-noir-700', 'bg-noir-950', 'text-neutral-400');
+        } else {
+          selectedScopes.push(val);
+          chip.classList.add('border-neon-cyan', 'bg-cyan-500/10', 'text-neon-cyan');
+          chip.classList.remove('border-noir-700', 'bg-noir-950', 'text-neutral-400');
+        }
+      });
+    });
+
+    // 10. Contact Form Handling
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      playBlip(800);
+      const name = document.getElementById('sender-name').value;
+      const email = document.getElementById('sender-email').value;
+      const message = document.getElementById('sender-message').value;
+      const scopes = selectedScopes.join(', ') || 'Consulting';
+
+      const toast = document.getElementById('form-toast');
+      toast.classList.remove('hidden');
+
+      const mailtoLink = `mailto:bishopshakya@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(
+        `Hi Brishav,\n\nI am contacting you regarding: ${scopes}\n\nProject Overview:\n${message}\n\nFrom: ${name} (${email})`
+      )}`;
+
+      setTimeout(() => {
+        window.location.href = mailtoLink;
+      }, 500);
+    }
+
+    // 11. Modal Blueprints
+    const modal = document.getElementById('case-modal');
+    const modalContent = document.getElementById('modal-content');
+
+    const modalData = {
+      ipo: {
+        title: "Bulk IPO Apply — NEPSE Engine",
+        subtitle: "Fintech Automation Architecture",
+        desc: "Engineered specifically for the Nepalese primary capital market. It automates repetitive CRN and Demat form submissions by orchestrating batch requests over a multi-threaded Flutter client, maintaining encrypted credentials locally on device keystores.",
+        features: ["Multi-account concurrency queue", "Automated result scraping and allotment push notifications", "Offline-first biometric credential locking"]
+      },
+      blood: {
+        title: "Blood For Me — Emergency Network",
+        subtitle: "Rapid Geo-Proximity Dispatch",
+        desc: "Designed to solve critical latency during medical trauma incidents. Implements a real-time radial geofence algorithm identifying compatible donor blood groups within a 15km perimeter in Kathmandu, Lalitpur, and Bhaktapur.",
+        features: ["Sub-4 minute median contact time", "Hospital ICU direct broadcast integration", "Strict verified donor privacy filters"]
+      },
+      hrs: {
+        title: "Digital HRS — Workforce Management",
+        subtitle: "Enterprise Attendance & HRMS",
+        desc: "Built in partnership with Cyclone Nepal Info Tech. The system enforces multi-factor check-in boundaries combining GPS coordinates, BSSID verification, and facial recognition to eradicate proxy attendance across 5,000+ deployed enterprise seats.",
+        features: ["Geo-Fenced Clock-in/Clock-out", "Dynamic Leave & Expense Approvals", "Multi-tenant role permissions"]
+      },
+      ahpu: {
+        title: "Ahpu Order — Restaurant Mesh",
+        subtitle: "Hospitality Terminal System",
+        desc: "Equipped with direct Bluetooth & ESC/POS Wi-Fi thermal printing logic for lightning-fast table orders, bill splitting, and kitchen ticket dispatch with zero Internet reliance.",
+        features: ["Offline local-mesh synchronization", "Instant table transfer handling", "Thermal printer SDK integration"]
+      },
+      lcci: {
+        title: "LCCI Connect — Chamber of Commerce",
+        subtitle: "Civic Directory & Verified Ledger",
+        desc: "Official mobile application for Lalitpur Chamber of Commerce and Industry. Powers digital membership certificates, business renewal registries, and public trade bulletins.",
+        features: ["Cryptographic QR Member Verification", "Chamber event registration", "Push alert bulletins"]
+      }
+    };
+
+    function openModal(key) {
+      const data = modalData[key];
+      if (!data) return;
+      playBlip(700);
+
+      modalContent.innerHTML = `
+        <span class="text-xs font-mono text-neon-cyan uppercase tracking-wider">${data.subtitle}</span>
+        <h3 class="text-xl sm:text-3xl font-display font-bold text-white">${data.title}</h3>
+        <p class="text-neutral-300 text-xs sm:text-sm leading-relaxed">${data.desc}</p>
+        <div class="space-y-2 pt-2">
+          <span class="text-xs font-mono uppercase text-neutral-400 font-semibold block">Key Engineering Highlights:</span>
+          ${data.features.map(f => `<div class="flex items-center gap-2 text-xs font-mono text-neutral-300"><span class="w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>${f}</div>`).join('')}
+        </div>
+      `;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      playBlip(350);
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // 12. Animated Metric Counters
+    const counters = document.querySelectorAll('.counter');
+    let countersStarted = false;
+
+    function runCounters() {
+      counters.forEach((c) => {
+        const target = +c.getAttribute('data-target');
+        let count = 0;
+        const inc = target / 35;
+        const update = () => {
+          count += inc;
+          if (count < target) {
+            c.innerText = Math.ceil(count) + '+';
+            setTimeout(update, 35);
+          } else {
+            c.innerText = target + '+';
+          }
+        };
+        update();
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!countersStarted && window.scrollY > 100) {
+        countersStarted = true;
+        runCounters();
+      }
+    });
+
+    // Refresh icons on window load
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
 </body>
 </html>
