@@ -432,6 +432,153 @@
       .reveal-ready .reveal { opacity: 1; }
       .reveal-ready .reveal.is-visible { animation: none; }
     }
+
+    /* =========================================================
+       FULL-WIDTH NAV BAR
+       ========================================================= */
+    #site-header {
+      --nav-h: 72px;
+      --p: 0;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    #site-header.is-scrolled { --nav-h: 58px; }
+    @media (max-width: 767px) {
+      #site-header { --nav-h: 60px; }
+      #site-header.is-scrolled { --nav-h: 54px; }
+    }
+
+    .nav-bar {
+      background: linear-gradient(to bottom, rgba(5, 5, 7, 0.55), rgba(5, 5, 7, 0.35));
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid rgba(38, 38, 51, 0.55);
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
+    }
+    #site-header.is-scrolled .nav-bar {
+      background: rgba(9, 9, 12, 0.86);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      backdrop-filter: blur(24px) saturate(160%);
+      box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Spotlight that follows the pointer across the whole bar */
+    .nav-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(360px circle at var(--mx, 50%) 0%, rgba(0, 242, 254, 0.14), rgba(157, 78, 221, 0.06) 45%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .nav-bar:hover::before { opacity: 1; }
+
+    .nav-inner {
+      height: var(--nav-h);
+      transition: height 0.3s ease;
+    }
+
+    /* Link capsule + sliding pill */
+    .nav-links {
+      background: rgba(5, 5, 7, 0.45);
+      border: 1px solid rgba(38, 38, 51, 0.8);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    .nav-link {
+      position: relative;
+      z-index: 1;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #a3a3a3;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover, .nav-link.is-active { color: #fff; }
+    .nav-link:focus-visible, .nav-cta:focus-visible {
+      outline: 2px solid #00f2fe;
+      outline-offset: 2px;
+    }
+    .nav-pill {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 0;
+      width: 0;
+      border-radius: 9999px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-pill::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -5px;
+      width: 18px;
+      height: 2px;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      background: #00f2fe;
+      box-shadow: 0 0 10px 1px rgba(0, 242, 254, 0.8);
+    }
+    .nav-pill.ready {
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), width 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      background: #00f2fe;
+      box-shadow: 0 0 30px -4px rgba(0, 242, 254, 0.6);
+    }
+
+    /* Scroll rail */
+    .nav-rail {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-fill {
+      position: absolute;
+      inset: 0;
+      transform-origin: left center;
+      transform: scaleX(var(--p));
+      background: linear-gradient(90deg, #00f2fe, #9d4edd 60%, #e1306c);
+    }
+    .nav-head {
+      position: absolute;
+      top: -3px;
+      left: calc(var(--p) * 100%);
+      width: 8px;
+      height: 8px;
+      margin-left: -4px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 12px 3px rgba(0, 242, 254, 0.9), 0 0 28px 6px rgba(157, 78, 221, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #site-header.is-scrolled .nav-head { opacity: 1; }
+    .nav-tick {
+      position: absolute;
+      bottom: 0;
+      width: 1px;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.22);
+      transition: background 0.3s ease, height 0.3s ease;
+    }
+    .nav-tick.passed { background: #00f2fe; height: 9px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-pill.ready, .nav-inner, .nav-bar { transition: none; }
+    }
   </style>
 </head>
 
@@ -445,67 +592,75 @@
   <div class="cursor-dot hidden lg:block"></div>
   <div class="cursor-ring hidden lg:block"></div>
 
-  <!-- Floating Top Navigation Bar (Adaptive Mobile + Desktop) -->
-  <header class="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6">
-    <nav class="w-full max-w-6xl flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl sm:rounded-full bg-noir-900/90 backdrop-blur-2xl border border-noir-700/80 shadow-2xl shadow-black/90">
-      
-      <!-- Logo Monogram with Micro Avatar -->
-      <a href="#hero" class="magnetic-trigger flex items-center gap-2.5 group">
-        <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full p-[1.5px] bg-gradient-to-tr from-cyan-400 via-indigo-500 to-neon-violet group-hover:scale-105 transition-transform flex-shrink-0">
-          <img 
-            src="https://brishavshakya.com.np/public_html/profile.jpg" 
-            alt="Brishav Shakya" 
-            class="w-full h-full object-cover rounded-full"
-            onerror="this.src='https://placehold.co/100x100/181820/00f2fe?text=BS'"
-          />
-          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-neon-emerald ring-2 ring-noir-950"></span>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-display font-black tracking-tight text-white text-sm sm:text-base leading-none">
-            BRISHAV<span class="text-neon-cyan">.</span>
-          </span>
-          <span class="text-[9px] font-mono text-neutral-400 hidden xs:inline-block">Mobile Architect</span>
-        </div>
-      </a>
+  <!-- Full-width Top Navigation Bar: edge-to-edge, with a scroll rail that doubles as a page map -->
+  <header id="site-header" class="fixed top-0 left-0 right-0 z-50">
+    <nav id="nav-bar" aria-label="Primary" class="nav-bar relative w-full">
+      <div class="nav-inner grid grid-cols-[1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center gap-4 w-full px-4 sm:px-6 lg:px-10">
 
-      <!-- Desktop Navigation Links (hidden on mobile/tablet) -->
-      <div class="hidden md:flex items-center gap-1 text-xs font-medium text-neutral-300">
-        <a href="#about" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">About</a>
-        <a href="#disciplines" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Arsenal</a>
-        <a href="#projects" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Projects</a>
-        <a href="#experience" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Journey</a>
-        <a href="#testimonials" class="magnetic-trigger px-3 py-1.5 rounded-full hover:text-white hover:bg-white/5 transition-all">Reviews</a>
-      </div>
-
-      <!-- Right Header Actions (Desktop + Mobile) -->
-      <div class="flex items-center gap-1.5 sm:gap-2">
-        
-        <!-- Live Nepal Time (Desktop only) -->
-        <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-noir-850 border border-noir-700 text-[11px] font-mono text-neutral-400">
-          <span class="w-1.5 h-1.5 rounded-full bg-neon-emerald animate-ping"></span>
-          <span>NPT:</span>
-          <span id="nepal-clock" class="text-neutral-200 font-medium">--:--:--</span>
-        </div>
-
-
-        <!-- Sound Toggle Button -->
-        <button id="audio-toggle" aria-label="Toggle Sound Effects" title="Sound Feedback" class="magnetic-trigger w-8 h-8 sm:w-8 sm:h-8 rounded-full bg-noir-800 border border-noir-700 flex items-center justify-center text-neutral-400 hover:text-neon-cyan hover:border-neon-cyan/50 transition-colors">
-          <i data-lucide="volume-2" id="sound-icon" class="w-3.5 h-3.5"></i>
-        </button>
-
-        <!-- CTA Button (Compact on mobile) -->
-        <a href="#contact" class="magnetic-trigger hidden xs:flex items-center gap-1.5 text-xs font-bold bg-white text-black px-3.5 py-1.5 rounded-full hover:bg-neon-cyan hover:text-black hover:shadow-glow-cyan transition-all transform active:scale-95">
-          <span>Let's Talk</span>
-          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        <!-- Logo -->
+        <a href="#hero" class="magnetic-trigger justify-self-start flex items-center gap-2.5 group">
+          <div class="relative w-9 h-9 rounded-full p-[1.5px] bg-gradient-to-tr from-cyan-400 via-indigo-500 to-neon-violet group-hover:scale-105 transition-transform flex-shrink-0">
+            <img
+              src="https://brishavshakya.com.np/public_html/profile.jpg"
+              alt="Brishav Shakya"
+              class="w-full h-full object-cover rounded-full"
+              onerror="this.src='https://placehold.co/100x100/181820/00f2fe?text=BS'"
+            />
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-neon-emerald ring-2 ring-noir-950"></span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display font-black tracking-tight text-white text-sm sm:text-base leading-none">
+              BRISHAV<span class="text-neon-cyan">.</span>
+            </span>
+            <span class="text-[10px] font-mono text-neutral-400 hidden sm:inline-block mt-0.5">Mobile Architect</span>
+          </div>
         </a>
 
-        <!-- Mobile Drawer Toggle Button -->
-        <button id="mobile-menu-btn" aria-label="Open Mobile Menu" class="md:hidden w-9 h-9 rounded-xl bg-noir-850 border border-noir-700 flex items-center justify-center text-neutral-300 hover:text-white hover:border-neutral-500 active:scale-95 transition-all">
-          <i data-lucide="menu" id="menu-icon" class="w-5 h-5"></i>
-        </button>
+        <!-- Centered links with a sliding highlight (desktop/tablet) -->
+        <div id="nav-links" class="nav-links hidden md:flex relative items-center gap-0.5 p-1 rounded-full">
+          <span id="nav-pill" class="nav-pill" aria-hidden="true"></span>
+          <a href="#about" class="nav-link magnetic-trigger">About</a>
+          <a href="#disciplines" class="nav-link magnetic-trigger">Arsenal</a>
+          <a href="#projects" class="nav-link magnetic-trigger">Projects</a>
+          <a href="#experience" class="nav-link magnetic-trigger">Journey</a>
+          <a href="#testimonials" class="nav-link magnetic-trigger">Reviews</a>
+        </div>
 
+        <!-- Right actions -->
+        <div class="justify-self-end flex items-center gap-1.5 sm:gap-2.5">
+
+          <!-- Live Nepal Time (large desktop only) -->
+          <div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-noir-850/80 border border-noir-700 text-[11px] font-mono text-neutral-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-neon-emerald animate-ping"></span>
+            <span>NPT:</span>
+            <span id="nepal-clock" class="text-neutral-200 font-medium">--:--:--</span>
+          </div>
+
+          <!-- Sound Toggle -->
+          <button id="audio-toggle" aria-label="Toggle Sound Effects" title="Sound Feedback" class="magnetic-trigger w-9 h-9 rounded-full bg-noir-800/80 border border-noir-700 flex items-center justify-center text-neutral-400 hover:text-neon-cyan hover:border-neon-cyan/50 transition-colors">
+            <i data-lucide="volume-2" id="sound-icon" class="w-4 h-4"></i>
+          </button>
+
+          <!-- CTA -->
+          <a href="#contact" class="nav-cta magnetic-trigger hidden sm:inline-flex items-center gap-1.5 text-xs font-bold bg-white text-black pl-4 pr-3 py-2 rounded-full transition-all active:scale-95">
+            <span>Let's Talk</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </a>
+
+          <!-- Mobile Drawer Toggle -->
+          <button id="mobile-menu-btn" aria-label="Open Mobile Menu" class="md:hidden w-10 h-10 rounded-xl bg-noir-850 border border-noir-700 flex items-center justify-center text-neutral-300 hover:text-white hover:border-neutral-500 active:scale-95 transition-all">
+            <i data-lucide="menu" id="menu-icon" class="w-5 h-5"></i>
+          </button>
+
+        </div>
       </div>
 
+      <!-- Scroll rail: fills as you read, ticks mark each section -->
+      <div class="nav-rail" aria-hidden="true">
+        <div id="nav-fill" class="nav-fill"></div>
+        <div id="nav-head" class="nav-head"></div>
+        <div id="nav-ticks"></div>
+      </div>
     </nav>
   </header>
 
@@ -1754,6 +1909,101 @@
         closeMobileMenu();
       }
     });
+
+    // 2b. Full-width nav: scrollspy, sliding pill, scroll rail, pointer spotlight
+    (function initNav() {
+      const header = document.getElementById('site-header');
+      const bar = document.getElementById('nav-bar');
+      const wrap = document.getElementById('nav-links');
+      const pill = document.getElementById('nav-pill');
+      const ticksEl = document.getElementById('nav-ticks');
+      if (!header || !bar || !wrap || !pill) return;
+
+      const links = Array.from(wrap.querySelectorAll('a[href^="#"]'));
+      const sections = links.map((l) => document.querySelector(l.getAttribute('href')));
+      let active = null;
+      let ticks = [];
+
+      function place(link) {
+        if (!link || wrap.offsetParent === null) { pill.style.opacity = '0'; return; }
+        const r = link.getBoundingClientRect();
+        const w = wrap.getBoundingClientRect();
+        pill.style.width = r.width + 'px';
+        pill.style.transform = 'translateX(' + (r.left - w.left - 1) + 'px)';
+        pill.style.opacity = '1';
+      }
+
+      function setActive(link) {
+        if (link === active) return;
+        active = link;
+        links.forEach((l) => l.classList.toggle('is-active', l === link));
+        place(link);
+      }
+
+      links.forEach((l) => l.addEventListener('mouseenter', () => place(l)));
+      wrap.addEventListener('mouseleave', () => place(active));
+      links.forEach((l) => l.addEventListener('focus', () => place(l)));
+      links.forEach((l) => l.addEventListener('blur', () => place(active)));
+
+      function buildTicks() {
+        ticksEl.innerHTML = '';
+        ticks = [];
+        const range = document.documentElement.scrollHeight - window.innerHeight;
+        if (range <= 0) return;
+        sections.forEach((s) => {
+          if (!s) return;
+          const top = s.getBoundingClientRect().top + window.scrollY;
+          const pos = Math.min(Math.max(top / range, 0), 1);
+          const t = document.createElement('span');
+          t.className = 'nav-tick';
+          t.style.left = (pos * 100) + '%';
+          t.dataset.pos = pos;
+          ticksEl.appendChild(t);
+          ticks.push(t);
+        });
+      }
+
+      let queued = false;
+      function onScroll() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          const y = window.scrollY;
+          const range = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+          const p = Math.min(Math.max(y / range, 0), 1);
+          header.style.setProperty('--p', p.toFixed(4));
+          header.classList.toggle('is-scrolled', y > 24);
+          ticks.forEach((t) => t.classList.toggle('passed', p >= parseFloat(t.dataset.pos) - 0.001));
+
+          // scrollspy: last section whose top has crossed 35% of the viewport
+          const line = window.innerHeight * 0.35;
+          let current = null, best = -Infinity;
+          sections.forEach((s, i) => {
+            if (!s) return;
+            const top = s.getBoundingClientRect().top;
+            if (top <= line && top > best) { best = top; current = links[i]; }
+          });
+          // Contact has no nav link; clear highlight once we are past the last linked section
+          const contact = document.getElementById('contact');
+          if (contact && contact.getBoundingClientRect().top <= line) current = null;
+          setActive(current);
+        });
+      }
+
+      bar.addEventListener('pointermove', (e) => {
+        const r = bar.getBoundingClientRect();
+        bar.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      });
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { buildTicks(); place(active); onScroll(); });
+      window.addEventListener('load', () => { buildTicks(); onScroll(); });
+
+      buildTicks();
+      onScroll();
+      requestAnimationFrame(() => pill.classList.add('ready'));
+    })();
 
     // 3. Live Nepal Time Indicator (UTC+5:45)
     function updateNepalTime() {
